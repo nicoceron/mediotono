@@ -26,7 +26,7 @@ export function Hero() {
             <span className="word c-green">por</span><br />
             <span className="word c-red">el arte.</span>
           </h1>
-          <Squiggle color="var(--accent)" style={{ marginTop: 18, maxWidth: 320 }} />
+          <Squiggle color="var(--accent)" style={{ marginTop: 18, width: "50%", maxWidth: 320 }} />
           <p className="hero-sub">
             En <strong>A ½ tono</strong> aprendes música y arte en grupos pequeños,
             con profes que te acompañan a tu ritmo. Para todas las edades.
