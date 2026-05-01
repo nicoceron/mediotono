@@ -9,21 +9,21 @@ export function Hero() {
   return (
     <section className="hero hero-with-bg" data-screen-label="Hero">
       <Image
-        src="/hero-bg.png"
+            src="/hero-bg.png"
         alt=""
         fill
         sizes="100vw"
-        style={{ objectFit: "cover", zIndex: 0 }}
-        priority
-      />
-      <div className="container hero-grid" style={{ position: "relative", zIndex: 1 }}>
+      style={{ objectFit: "cover", zIndex: 0 }}
+      priority
+    />
+    <div className="container hero-grid" style={{ position: "relative", zIndex: 2 }}>
         <div>
           <span className="hero-eyebrow">✦ Escuela de artes ✦</span>
           <h1>
-            <span className="word c-orange">Descubre</span>{" "}
+            <span className="word c-orange">Descubre</span><br />
             <span className="word c-pink">tu</span>{" "}
             <span className="word c-blue">pasión</span>{" "}
-            <span className="word c-green">por</span>{" "}
+            <span className="word c-green">por</span><br />
             <span className="word c-red">el arte.</span>
           </h1>
           <Squiggle color="var(--accent)" style={{ marginTop: 18, maxWidth: 320 }} />
