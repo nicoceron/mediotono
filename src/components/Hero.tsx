@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section className="hero hero-with-bg" data-screen-label="Hero">
       <Image
-            src="/hero-bg.png"
+            src="/hero-bg.svg"
         alt=""
         fill
         sizes="100vw"
@@ -31,15 +31,7 @@ export function Hero() {
             En <strong>A ½ tono</strong> aprendes música y arte en grupos pequeños,
             con profes que te acompañan a tu ritmo. Para todas las edades.
           </p>
-          <div className="hero-ctas">
-            <a className="btn btn-wa" href={WA_URL} target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .15 5.3.15 11.9c0 2.1.55 4.1 1.6 5.9L.05 24l6.3-1.7a11.9 11.9 0 0 0 5.65 1.4c6.55 0 11.9-5.3 11.9-11.9 0-3.2-1.25-6.2-3.4-8.3Z"/></svg>
-              Escríbenos
-            </a>
-            <a className="btn btn-yellow" href="#cursos">
-              Ver cursos →
-            </a>
-          </div>
+
         </div>
       </div>
     </section>

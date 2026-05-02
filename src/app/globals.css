@@ -25,7 +25,7 @@
   --font-hand-2: "Patrick Hand", cursive;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 
-  --base-size: 16px;
+  --base-size: 20px;
 }
 
 [data-theme="dark"] {
@@ -238,7 +238,8 @@ p { margin: 0 0 1em 0; }
   min-height: calc(100vh - 58px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 11vh;
   padding-bottom: 0;
   background-color: var(--bg);
 }
@@ -248,7 +249,7 @@ p { margin: 0 0 1em 0; }
   inset: 0;
   z-index: 1;
   background: var(--bg);
-  opacity: 0.7;
+  opacity: 0.2;
 }
 .hero-grid {
   display: grid;
@@ -753,17 +754,36 @@ footer .foot-logo { font-family: var(--font-display); font-size: 1.4rem; margin-
 .voces-strip {
   position: relative;
   z-index: 2;
-  padding: 20px 0;
-  background: var(--bg);
-  border-top: 2px dashed var(--line);
-  border-bottom: 2px dashed var(--line);
-  text-align: center;
+  overflow: hidden;
+  padding: 16px 0;
+  background: var(--ink);
+  color: var(--bg);
+  border-top: 2.5px solid var(--line);
+  border-bottom: 2.5px solid var(--line);
 }
-.voces-message {
-  font-family: var(--font-hand);
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 700;
-  color: var(--ink);
-  margin: 0;
-  line-height: 1.3;
+.voces-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  white-space: nowrap;
+  animation: voces-marquee 28s linear infinite;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 400;
+  padding-left: 36px;
+}
+.voces-icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  object-fit: contain;
+  margin-top: -8px;
+  margin-bottom: -8px;
+}
+@keyframes voces-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (max-width: 768px) {
+  .voces-track { font-size: 1.2rem; gap: 24px; padding-left: 24px; }
 }
