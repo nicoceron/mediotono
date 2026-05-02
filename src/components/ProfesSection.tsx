@@ -23,7 +23,7 @@ const TEACHERS = [
 
 export function ProfesSection() {
   return (
-    <section className="block" id="profes" data-screen-label="Profesores">
+    <section className="block alt" id="profes" data-screen-label="Profesores">
       <div className="container">
         <SectionHeader
           eyebrow="Las personas detrás"

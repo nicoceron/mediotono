@@ -1,6 +1,5 @@
 import { Hero } from "@/components/Hero";
 import { VocesStrip } from "@/components/VocesStrip";
-import { CursosSection } from "@/components/CursosSection";
 import { ProfesSection } from "@/components/ProfesSection";
 import { FeedSection } from "@/components/FeedSection";
 import { TestimoniosSection } from "@/components/TestimoniosSection";
@@ -12,7 +11,6 @@ export default function Home() {
     <>
       <Hero />
       <VocesStrip />
-      <CursosSection />
       <ProfesSection />
       <FeedSection />
       <TestimoniosSection />
