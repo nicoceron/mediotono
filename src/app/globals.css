@@ -322,17 +322,12 @@ p { margin: 0 0 1em 0; }
       url("/hero-bg-mobile.webp") type("image/webp"),
       url("/hero-bg-mobile.png") type("image/png")
     );
-    background-position: center center;
+    background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: saturate(0.95);
     opacity: 1;
   }
-  .hero-with-bg::after { opacity: 0.04; }
-  [data-theme="dark"] .hero-with-bg::before {
-    filter: saturate(0.85) brightness(0.82);
-  }
-  [data-theme="dark"] .hero-with-bg::after { opacity: 0.7; }
+  .hero-with-bg::after { opacity: 0; }
   .hero-logo-stage {
     min-height: clamp(480px, 70svh, 620px);
     padding: 82px 16px 30px;
