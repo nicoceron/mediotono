@@ -6,21 +6,18 @@ import { Reveal } from "@/components/Reveal";
 const STEPS = [
   {
     number: "1",
-    chip: "var(--pink)",
     title: "Encuentra tu profe.",
     body: "Conoce a los profes de A ½ tono y elige con quién quieres empezar — desde la primera clase vas a sentirte en confianza.",
     accent: "var(--green)",
   },
   {
     number: "2",
-    chip: "var(--pink)",
     title: "Comienza a aprender.",
     body: "Tu profe adapta cada clase a tus objetivos — sin importar si llegas con miedo, sin saber leer una nota o queriendo perfeccionar tu técnica.",
     accent: "var(--orange)",
   },
   {
     number: "3",
-    chip: "var(--pink)",
     title: "Avanza cada semana.",
     body: "Clases presenciales o virtuales, en grupos pequeños y con seguimiento real — para que cada semana suene un poquito mejor que la anterior.",
     accent: "var(--blue)",
@@ -57,7 +54,7 @@ export function ComoFuncionaSection() {
             <Reveal as="article" className="cf-card" key={step.number} delay={i * 120}>
               <span
                 className="cf-step-chip"
-                style={{ background: step.chip }}
+                style={{ background: step.accent }}
                 aria-hidden="true"
               >
                 {step.number}
@@ -87,9 +84,9 @@ export function ComoFuncionaSection() {
                         />
                         <Image
                           src={t.photo}
-                          alt={t.shortName}
+                          alt=""
                           fill
-                          sizes="72px"
+                          sizes="(max-width: 700px) 112px, 130px"
                         />
                       </div>
                       <div className="cf-mini-profe-body">
@@ -108,37 +105,26 @@ export function ComoFuncionaSection() {
 
               {i === 1 && (
                 <div className="cf-card-visual cf-visual-class">
-                  <div className="cf-lesson-strip">
-                    {[0, 1, 2].map((tile) => (
-                      <div className="cf-photo-tile" key={tile}>
-                        <Image
-                          src="/comienza-a-aprender-poster.jpg"
-                          alt=""
-                          fill
-                          sizes="220px"
-                        />
-                      </div>
-                    ))}
-                    <div className="cf-photo-tile">
-                      <video
-                        src="/comienza-a-aprender.mp4"
-                        poster="/comienza-a-aprender-poster.jpg"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        aria-label="Estudiante en clase de flauta"
-                      />
-                    </div>
+                  <div className="cf-lesson-frame">
+                    <video
+                      className="cf-lesson-video"
+                      src="/comienza-a-aprender-guitarra.mp4"
+                      poster="/comienza-a-aprender-guitarra-poster.jpg"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      aria-label="Estudiante en clase de guitarra"
+                    />
                   </div>
                 </div>
               )}
 
               {i === 2 && (
                 <div className="cf-card-visual cf-visual-progress">
-                  <div className="cf-video-wrap">
+                  <div className="cf-progress-frame">
                     <video
-                      className="cf-video-main"
+                      className="cf-progress-video"
                       src="/avanza-cada-semana.mp4"
                       poster="/avanza-cada-semana-poster.jpg"
                       autoPlay

@@ -2184,10 +2184,10 @@ footer.foot-rich {
 
 /* ===== Cómo funciona — landing 3-step section ===== */
 .cf-head {
-  margin-bottom: 48px;
+  margin-bottom: 42px;
 }
 .cf-container {
-  max-width: 1440px;
+  max-width: 1280px;
 }
 .cf-title {
   font-size: clamp(36px, 4.8vw, 64px);
@@ -2210,36 +2210,58 @@ footer.foot-rich {
 .cf-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  max-width: 1440px;
+  gap: 32px;
+  max-width: 100%;
   margin: 0 auto;
 }
 @media (max-width: 980px) {
-  .cf-grid { grid-template-columns: 1fr; gap: 20px; max-width: 100%; }
+  .cf-grid { grid-template-columns: 1fr; gap: 22px; max-width: 680px; }
 }
 .cf-card {
-  background: var(--paper);
-  border: 2px solid color-mix(in srgb, var(--ink) 18%, transparent);
-  border-radius: 4px;
-  padding: 32px 30px 28px;
+  --cf-card-accent: var(--pink);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--cf-card-accent) 8%, var(--paper)) 0%,
+      var(--paper) 34%,
+      var(--paper) 100%
+    );
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  border-radius: 32px;
+  padding: 30px 32px 30px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-height: 560px;
+  gap: 14px;
+  min-height: 570px;
   overflow: hidden;
   position: relative;
+  box-shadow:
+    0 26px 60px color-mix(in srgb, var(--ink) 10%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
+}
+.cf-card:nth-child(1) { --cf-card-accent: var(--green); }
+.cf-card:nth-child(2) { --cf-card-accent: var(--orange); }
+.cf-card:nth-child(3) { --cf-card-accent: var(--blue); }
+.cf-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-top: 5px solid color-mix(in srgb, var(--cf-card-accent) 58%, transparent);
+  pointer-events: none;
 }
 .cf-step-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 5px;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
   font-family: var(--font-display);
   font-size: 1.6rem;
+  font-weight: 800;
   color: white;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--cf-card-accent) 34%, transparent);
   align-self: flex-start;
 }
 .cf-card-title {
@@ -2256,10 +2278,12 @@ footer.foot-rich {
   font-size: 1rem;
   line-height: 1.55;
   color: var(--ink-soft);
+  max-width: 38ch;
+  min-height: calc(1em * 1.55 * 4);
 }
 .cf-card-visual {
-  margin-top: auto;
-  flex: 1;
+  margin-top: 20px;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -2269,50 +2293,49 @@ footer.foot-rich {
 /* Step 1 visual: stacked profe mini-cards (Preply-style) */
 .cf-visual-profes {
   position: relative;
-  height: 330px;
-  margin-top: 8px;
+  height: 258px;
+  margin-top: 20px;
 }
 .cf-mini-profe {
   position: absolute;
   left: 0;
   right: 8px;
-  height: 92px;
+  height: 102px;
   display: grid;
-  grid-template-columns: 72px 1fr auto;
+  grid-template-columns: minmax(96px, 36%) 1fr;
   gap: 14px;
-  align-items: center;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1.5px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  align-items: stretch;
+  padding: 10px 14px 10px 10px;
+  border-radius: 22px;
+  border: 2px solid color-mix(in srgb, var(--ink) 22%, transparent);
   background: var(--paper);
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 16px 34px color-mix(in srgb, black 10%, transparent);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .cf-mini-profe:nth-of-type(1) {
   top: 0; left: 0; right: 2px; z-index: 3;
 }
 .cf-mini-profe:nth-of-type(2) {
-  top: 100px; left: 18px; right: -14px; z-index: 2;
+  top: 78px; left: 22px; right: -8px; z-index: 2;
 }
 .cf-mini-profe:nth-of-type(3) {
-  top: 200px; left: 56px; right: -22px; z-index: 1;
+  top: 156px; left: 44px; right: -16px; z-index: 1;
 }
 .cf-mini-profe:hover {
   z-index: 4;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 42px color-mix(in srgb, black 13%, transparent);
   transform: translateY(-2px);
 }
 .cf-mini-profe-photo {
   position: relative;
-  width: 72px;
-  height: 72px;
-  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
   border: 2px solid;
   overflow: hidden;
   flex-shrink: 0;
-  grid-row: 1 / 3;
 }
 .cf-mini-profe-bg {
   position: absolute; inset: 0; opacity: 0.55; z-index: 0;
@@ -2323,6 +2346,7 @@ footer.foot-rich {
 .cf-mini-profe-body {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   min-width: 0;
 }
 .cf-mini-profe-body strong {
@@ -2337,78 +2361,55 @@ footer.foot-rich {
   margin-top: 2px;
 }
 .cf-mini-profe-more {
-  font-family: var(--font-hand);
-  font-size: 1.05rem;
-  color: var(--ink);
-  text-decoration: none;
-  align-self: flex-end;
-  margin-top: auto;
-  border-bottom: 2px dotted color-mix(in srgb, var(--ink) 35%, transparent);
-  padding-bottom: 1px;
-  transition: color 0.2s ease;
-}
-.cf-mini-profe-more:hover { color: var(--accent); }
-@media (max-width: 700px) {
-  .cf-mini-profe-more { display: none; }
+  display: none;
 }
 
-/* Step 2 visual: cascading overlapping tiles — vertically stacked */
+/* Step 2 visual: single guitar lesson frame */
 .cf-visual-class {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  margin-top: 28px;
-  flex: 1;
+  margin-top: 20px;
+  flex: 0 0 auto;
 }
-.cf-lesson-strip {
+.cf-lesson-frame {
   position: relative;
-  height: 100%;
   width: 100%;
-  min-height: 260px;
-}
-.cf-photo-tile {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  aspect-ratio: 3 / 4;
-  border: 2px solid color-mix(in srgb, var(--ink) 18%, transparent);
-  border-radius: 10px;
+  height: 258px;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 20px;
   overflow: hidden;
   background: var(--soft);
+  box-shadow: 0 22px 44px color-mix(in srgb, black 10%, transparent);
 }
-.cf-photo-tile:nth-child(1) { left: 0; opacity: 0.38; }
-.cf-photo-tile:nth-child(2) { left: 48px; opacity: 0.56; }
-.cf-photo-tile:nth-child(3) { left: 96px; opacity: 0.76; }
-.cf-photo-tile:nth-child(4) { left: 144px; opacity: 1; }
-.cf-photo-tile img,
-.cf-photo-tile video {
+.cf-lesson-video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: center 58%;
   display: block;
 }
 
-/* Step 3 visual: clean video frame */
+/* Step 3 visual: single landscape frame */
 .cf-visual-progress {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 0 auto;
+  margin-top: 20px;
 }
-.cf-video-wrap {
+.cf-progress-frame {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 260px;
-  border: 2px solid color-mix(in srgb, var(--ink) 18%, transparent);
-  border-radius: 10px;
+  height: 258px;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 18px;
   overflow: hidden;
-  background: var(--soft);
+  background: color-mix(in srgb, var(--paper) 74%, var(--blue) 10%);
+  box-shadow: 0 22px 44px color-mix(in srgb, black 10%, transparent);
 }
-.cf-video-main {
+.cf-progress-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
