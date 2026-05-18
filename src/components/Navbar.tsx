@@ -60,6 +60,9 @@ export function Navbar() {
             <Link href="/profes">Profes</Link>
             <Link href="/nosotros">Nosotros</Link>
           </nav>
+          <Link className="nav-cta" href="/#contacto">
+            Contacto
+          </Link>
           <button
             className="theme-toggle"
             onClick={toggleTheme}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 const ITEMS = [
@@ -21,9 +22,11 @@ export function VocesStrip() {
       >
         {ITEMS.map((item, i) => (
           <span className="voces-badge" key={i}>
-            <img
+            <Image
               src={item.icon}
               alt=""
+              width={46}
+              height={46}
               className="voces-icon"
             />
             <span className="voces-word">{item.word}</span>

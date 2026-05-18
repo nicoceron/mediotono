@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, GraduationCap, Sparkles, Star } from "lucide-react";
 import { Footer } from "@/components/Footer";
@@ -76,7 +77,7 @@ export default function ProfesPage() {
                         className="profe-card-photo-bg"
                         style={{ background: t.color }}
                       />
-                      <img src={t.photo} alt={t.name} />
+                      <Image src={t.photo} alt={t.name} fill sizes="180px" />
                     </Link>
 
                     <div className="profe-card-body">

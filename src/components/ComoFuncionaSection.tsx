@@ -85,7 +85,12 @@ export function ComoFuncionaSection() {
                           className="cf-mini-profe-bg"
                           style={{ background: t.color }}
                         />
-                        <img src={t.photo} alt={t.shortName} />
+                        <Image
+                          src={t.photo}
+                          alt={t.shortName}
+                          fill
+                          sizes="72px"
+                        />
                       </div>
                       <div className="cf-mini-profe-body">
                         <strong style={{ color: t.color }}>
@@ -104,10 +109,27 @@ export function ComoFuncionaSection() {
               {i === 1 && (
                 <div className="cf-card-visual cf-visual-class">
                   <div className="cf-lesson-strip">
-                    <div className="cf-photo-tile"><img src="/comienza-a-aprender.gif" alt="" /></div>
-                    <div className="cf-photo-tile"><img src="/comienza-a-aprender.gif" alt="" /></div>
-                    <div className="cf-photo-tile"><img src="/comienza-a-aprender.gif" alt="" /></div>
-                    <div className="cf-photo-tile"><img src="/comienza-a-aprender.gif" alt="" /></div>
+                    {[0, 1, 2].map((tile) => (
+                      <div className="cf-photo-tile" key={tile}>
+                        <Image
+                          src="/comienza-a-aprender-poster.jpg"
+                          alt=""
+                          fill
+                          sizes="220px"
+                        />
+                      </div>
+                    ))}
+                    <div className="cf-photo-tile">
+                      <video
+                        src="/comienza-a-aprender.mp4"
+                        poster="/comienza-a-aprender-poster.jpg"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        aria-label="Estudiante en clase de flauta"
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -115,7 +137,16 @@ export function ComoFuncionaSection() {
               {i === 2 && (
                 <div className="cf-card-visual cf-visual-progress">
                   <div className="cf-video-wrap">
-                    <img className="cf-video-main" src="/avanza-cada-semana.gif" alt="Avanza cada semana" />
+                    <video
+                      className="cf-video-main"
+                      src="/avanza-cada-semana.mp4"
+                      poster="/avanza-cada-semana-poster.jpg"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      aria-label="Presentación musical de estudiantes"
+                    />
                   </div>
                 </div>
               )}

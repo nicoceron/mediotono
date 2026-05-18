@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const FOUNDERS = [
   { name: "Daniela Cárdenas", role: "Iniciación Musical", color: "var(--purple)", bio: "Soy la profe de los mil recursos: convierto colores, burbujas, pañuelos y cuentos en experiencias donde la música se vive antes de aprenderse.", photo: "/profes/daniela-cardenas.svg" },
   { name: "Gisselle Torres", role: "Flauta", color: "var(--green)", bio: "Tu profe de flauta que no omite lo gracioso que es equivocarse en clases. Soy Gisselle, ¡si no te ríes pierdes!", photo: "/profes/gisselle-torres.svg" },
@@ -48,7 +50,7 @@ export function MisionSection() {
                 <div className="founder-item" key={f.name}>
                   <div className="founder-photo" style={{ borderColor: f.color }}>
                     <div className="founder-photo-bg" style={{ background: f.color }} />
-                    <img src={f.photo} alt={f.name} />
+                    <Image src={f.photo} alt={f.name} fill sizes="180px" />
                   </div>
                   <div className="founder-body">
                     <h3 style={{ color: f.color }}>{f.name}</h3>

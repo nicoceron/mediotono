@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -82,7 +83,7 @@ export default async function ProfeDetailPage({
                     className="pd-hero-photo-bg"
                     style={{ background: teacher.color }}
                   />
-                  <img src={teacher.photo} alt={teacher.name} />
+                  <Image src={teacher.photo} alt={teacher.name} fill sizes="200px" />
                 </div>
                 <div className="pd-hero-copy">
                   <h1 className="pd-hero-name">
