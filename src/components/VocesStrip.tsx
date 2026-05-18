@@ -4,9 +4,12 @@ import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 const ITEMS = [
-  { word: "Todas las Edades", icon: "/instruments/blue-note.svg" },
-  { word: "Todos los Instrumentos", icon: "/instruments/orange-note.svg" },
-  { word: "Presencial & Virtual", icon: "/instruments/pink-treble.svg" },
+  { type: "brand" },
+  { type: "offer", title: "CLASES PRESENCIALES", subtitle: "En grupos pequeños" },
+  { type: "brand" },
+  { type: "offer", title: "CLASES VIRTUALES", subtitle: "Desde casa" },
+  { type: "brand" },
+  { type: "offer", title: "TODAS LAS EDADES", subtitle: "Música y arte" },
 ];
 
 export function VocesStrip() {
@@ -14,22 +17,28 @@ export function VocesStrip() {
     <section className="voces-strip" aria-hidden="true">
       <Marquee
         autoFill
-        direction="right"
-        speed={45}
+        direction="left"
+        speed={28}
         gradient={false}
         pauseOnHover={false}
         className="voces-marquee-wrap"
       >
         {ITEMS.map((item, i) => (
           <span className="voces-badge" key={i}>
-            <Image
-              src={item.icon}
-              alt=""
-              width={46}
-              height={46}
-              className="voces-icon"
-            />
-            <span className="voces-word">{item.word}</span>
+            {item.type === "brand" ? (
+              <Image
+                src="/logo-nav.svg"
+                alt=""
+                width={1205}
+                height={300}
+                className="voces-logo"
+              />
+            ) : (
+              <span className="voces-offer">
+                <span className="voces-offer-title">{item.title}</span>
+                <span className="voces-offer-sub">{item.subtitle}</span>
+              </span>
+            )}
           </span>
         ))}
       </Marquee>
