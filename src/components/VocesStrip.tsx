@@ -3,10 +3,17 @@
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
-const ITEMS = [
-  { word: "Todas las Edades", icon: "/instruments/blue-note.svg" },
-  { word: "Todos los Instrumentos", icon: "/instruments/orange-note.svg" },
-  { word: "Presencial & Virtual", icon: "/instruments/pink-treble.svg" },
+type StripItem =
+  | { type: "asset"; icon: string }
+  | { type: "offer"; title: string; subtitle: string };
+
+const ITEMS: StripItem[] = [
+  { type: "asset", icon: "/instruments/blue-note.svg" },
+  { type: "offer", title: "Clases presenciales", subtitle: "En grupos pequeños" },
+  { type: "asset", icon: "/instruments/orange-note.svg" },
+  { type: "offer", title: "Clases virtuales", subtitle: "Desde casa" },
+  { type: "asset", icon: "/instruments/pink-treble.svg" },
+  { type: "offer", title: "Todas las edades", subtitle: "Música y arte" },
 ];
 
 export function VocesStrip() {
@@ -14,22 +21,28 @@ export function VocesStrip() {
     <section className="voces-strip" aria-hidden="true">
       <Marquee
         autoFill
-        direction="right"
-        speed={45}
+        direction="left"
+        speed={28}
         gradient={false}
         pauseOnHover={false}
         className="voces-marquee-wrap"
       >
         {ITEMS.map((item, i) => (
-          <span className="voces-badge" key={i}>
-            <Image
-              src={item.icon}
-              alt=""
-              width={46}
-              height={46}
-              className="voces-icon"
-            />
-            <span className="voces-word">{item.word}</span>
+          <span className={`voces-badge ${item.type === "asset" ? "voces-badge-asset" : ""}`} key={i}>
+            {item.type === "asset" ? (
+              <Image
+                src={item.icon}
+                alt=""
+                width={96}
+                height={96}
+                className="voces-strip-icon"
+              />
+            ) : (
+              <span className="voces-offer">
+                <span className="voces-offer-title">{item.title}</span>
+                <span className="voces-offer-sub">{item.subtitle}</span>
+              </span>
+            )}
           </span>
         ))}
       </Marquee>

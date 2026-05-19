@@ -51,7 +51,6 @@ export default function TrabajaConNosotrosPage() {
           </header>
 
           <div className="job-application-title">
-            <p>Convocatoria abierta</p>
             <h1>Profesor/a de música</h1>
           </div>
 

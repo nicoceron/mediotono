@@ -8,7 +8,7 @@ const STEPS = [
     number: "1",
     title: "Encuentra tu profe.",
     body: "Conoce a los profes de A ½ tono y elige con quién quieres empezar — desde la primera clase vas a sentirte en confianza.",
-    accent: "var(--green)",
+    accent: "var(--pink)",
   },
   {
     number: "2",

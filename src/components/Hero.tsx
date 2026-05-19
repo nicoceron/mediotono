@@ -13,7 +13,7 @@ export function Hero() {
         style={{ zIndex: 0 }}
         priority
       />
-      <div className="container hero-grid" style={{ position: "relative", zIndex: 2 }}>
+      <div className="container hero-grid">
         <HeroEntrance />
       </div>
     </section>
