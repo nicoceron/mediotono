@@ -24,7 +24,6 @@ export function JobsCTASection() {
           </div>
 
           <div className="jobs-cta-copy">
-            <p className="jobs-cta-eyebrow">Convocatoria abierta</p>
             <h2>Trabaja como profe</h2>
             <p className="jobs-cta-text">
               Buscamos profes de música que disfruten enseñar, escuchar y construir procesos reales con cada estudiante.

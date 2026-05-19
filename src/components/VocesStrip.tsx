@@ -3,13 +3,17 @@
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
-const ITEMS = [
-  { type: "brand" },
-  { type: "offer", title: "CLASES PRESENCIALES", subtitle: "En grupos pequeños" },
-  { type: "brand" },
-  { type: "offer", title: "CLASES VIRTUALES", subtitle: "Desde casa" },
-  { type: "brand" },
-  { type: "offer", title: "TODAS LAS EDADES", subtitle: "Música y arte" },
+type StripItem =
+  | { type: "asset"; icon: string }
+  | { type: "offer"; title: string; subtitle: string };
+
+const ITEMS: StripItem[] = [
+  { type: "asset", icon: "/instruments/blue-note.svg" },
+  { type: "offer", title: "Clases presenciales", subtitle: "En grupos pequeños" },
+  { type: "asset", icon: "/instruments/orange-note.svg" },
+  { type: "offer", title: "Clases virtuales", subtitle: "Desde casa" },
+  { type: "asset", icon: "/instruments/pink-treble.svg" },
+  { type: "offer", title: "Todas las edades", subtitle: "Música y arte" },
 ];
 
 export function VocesStrip() {
@@ -24,14 +28,14 @@ export function VocesStrip() {
         className="voces-marquee-wrap"
       >
         {ITEMS.map((item, i) => (
-          <span className="voces-badge" key={i}>
-            {item.type === "brand" ? (
+          <span className={`voces-badge ${item.type === "asset" ? "voces-badge-asset" : ""}`} key={i}>
+            {item.type === "asset" ? (
               <Image
-                src="/logo-nav.svg"
+                src={item.icon}
                 alt=""
-                width={1205}
-                height={300}
-                className="voces-logo"
+                width={96}
+                height={96}
+                className="voces-strip-icon"
               />
             ) : (
               <span className="voces-offer">
