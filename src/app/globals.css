@@ -372,6 +372,7 @@ p  { font-size: 16px; line-height: 1.5; margin: 0 0 1em 0; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  transform-origin: center;
 }
 .hero-with-bg::after {
   content: "";
@@ -380,10 +381,14 @@ p  { font-size: 16px; line-height: 1.5; margin: 0 0 1em 0; }
   z-index: 1;
   background: var(--bg);
   opacity: 0.2;
+  animation: hero-overlay-fade 1.5s 0.3s both;
 }
 .hero-bg-image {
   object-fit: cover;
   object-position: center top;
+  transform-origin: center;
+  animation: hero-bg-zoom 2s cubic-bezier(0.6, -0.01, 0.3, 0.99) both;
+  will-change: transform;
 }
 .hero-logo-stage {
   display: flex;
@@ -392,6 +397,8 @@ p  { font-size: 16px; line-height: 1.5; margin: 0 0 1em 0; }
   min-height: calc(100vh - 150px);
   min-height: calc(100svh - 150px);
   padding: 20px;
+  animation: hero-logo-reveal 1.45s cubic-bezier(0.22, 1, 0.36, 1) 0.65s both;
+  will-change: transform, opacity;
 }
 .hero-logo-main {
   width: min(92vw, 620px);
@@ -432,8 +439,12 @@ p  { font-size: 16px; line-height: 1.5; margin: 0 0 1em 0; }
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 1;
+    animation: hero-bg-zoom 2s cubic-bezier(0.6, -0.01, 0.3, 0.99) both;
   }
-  .hero-with-bg::after { opacity: 0; }
+  .hero-with-bg::after {
+    opacity: 0;
+    animation: none;
+  }
   .hero-logo-stage {
     min-height: clamp(480px, 70svh, 620px);
     padding: 82px 16px 30px;
@@ -441,6 +452,36 @@ p  { font-size: 16px; line-height: 1.5; margin: 0 0 1em 0; }
   .hero-logo-main {
     width: min(90vw, 480px);
     max-height: 52svh;
+  }
+}
+
+@keyframes hero-bg-zoom {
+  from { transform: scale(1.1); }
+  to { transform: scale(1); }
+}
+
+@keyframes hero-overlay-fade {
+  from { opacity: 0; }
+  to { opacity: 0.2; }
+}
+
+@keyframes hero-logo-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-image,
+  .hero-logo-stage,
+  .hero-with-bg::before,
+  .hero-with-bg::after {
+    animation: none;
   }
 }
 .hero-eyebrow {
