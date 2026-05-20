@@ -16,7 +16,7 @@ export function Footer() {
       <div className="container foot-grid">
         <div className="foot-brand">
           <Image
-            src="/logo.svg"
+            src="/logo-hero-4c023bde.svg"
             alt="A ½ tono — Escuela de artes"
             width={160}
             height={120}

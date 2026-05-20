@@ -41,7 +41,7 @@ export default function TrabajaConNosotrosPage() {
               <ArrowLeft aria-hidden="true" size={22} strokeWidth={2.6} />
             </Link>
             <Image
-              src="/logo-nav.svg"
+              src="/logo-nav-947b682d.svg"
               alt="A medio tono"
               width={1205}
               height={300}

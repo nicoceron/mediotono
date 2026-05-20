@@ -40,7 +40,7 @@ export function ComoFuncionaSection() {
             <span style={{ color: "var(--ink)" }}>funciona</span>{" "}
             <Image
               className="cf-title-logo"
-              src="/logo-nav.svg"
+              src="/logo-nav-947b682d.svg"
               alt="A ½ tono"
               width={1205}
               height={300}

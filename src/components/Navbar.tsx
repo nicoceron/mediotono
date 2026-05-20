@@ -46,7 +46,7 @@ export function Navbar() {
         <Link href="/" className="nav-logo" aria-label="A medio tono — inicio">
           <Image
             className="nav-logo-img"
-            src="/logo-nav.svg"
+            src="/logo-nav-947b682d.svg"
             alt="A ½ tono"
             width={1205}
             height={300}
