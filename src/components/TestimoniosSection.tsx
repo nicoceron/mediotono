@@ -11,27 +11,6 @@ import {
 import { useRef, useState, type CSSProperties } from "react";
 import { FEATURED_QUOTES } from "@/lib/teachers";
 
-function ColoredEscuela() {
-  const letters = [
-    { char: "e", color: "var(--orange)" },
-    { char: "s", color: "var(--green)" },
-    { char: "c", color: "var(--red)" },
-    { char: "u", color: "var(--blue)" },
-    { char: "e", color: "var(--pink)" },
-    { char: "l", color: "var(--purple)" },
-    { char: "a", color: "var(--yellow)" },
-  ];
-  return (
-    <span>
-      {letters.map((l, i) => (
-        <span key={i} style={{ color: l.color }}>
-          {l.char}
-        </span>
-      ))}
-    </span>
-  );
-}
-
 function trimQuote(text: string, maxChars = 130): string {
   if (text.length <= maxChars) return text;
   const slice = text.slice(0, maxChars);
@@ -68,12 +47,7 @@ export function TestimoniosSection() {
     >
       <div className="container">
         <div className="sec-head voces-head">
-          <div className="sec-eyebrow">Lo que dicen las familias</div>
-          <h2>
-            <span style={{ color: "var(--green)", marginRight: 12, display: "inline-block" }}>Voces</span>
-            <span style={{ color: "var(--blue)", marginRight: 12, display: "inline-block" }}>de la</span>
-            <ColoredEscuela />
-          </h2>
+          <h2 className="voces-title">Lo que dicen las familias</h2>
         </div>
 
         <div

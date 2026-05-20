@@ -1,7 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Minus, Plus } from "lucide-react";
 import { MAIN_COURSES, MORE_COURSES, courseHref, type Course } from "@/lib/courses";
+import { TEACHERS } from "@/lib/teachers";
+
+const COURSE_TEACHER_COUNTS = new Map<string, number>();
+
+for (const teacher of TEACHERS) {
+  for (const skillId of teacher.skillIds) {
+    COURSE_TEACHER_COUNTS.set(skillId, (COURSE_TEACHER_COUNTS.get(skillId) ?? 0) + 1);
+  }
+}
+
+function courseCountLabel(course: Course) {
+  const count = COURSE_TEACHER_COUNTS.get(course.id) ?? 0;
+
+  if (count === 0) return "Próximamente";
+  return `${count} ${count === 1 ? "profe disponible" : "profes disponibles"}`;
+}
 
 function SectionHeader({ eyebrow, title, sub, titleColors }: { eyebrow?: string; title: string; sub?: string; titleColors?: string[] }) {
   const words = title.split(" ");
@@ -26,12 +42,13 @@ function CourseCard({ course }: { course: Course }) {
       aria-label={`Ver profes de ${course.label}`}
     >
       <span className="course-icon" aria-hidden="true">
-        <Image src={course.icon} alt="" width={72} height={72} />
+        <Image src={course.icon} alt="" width={64} height={64} />
       </span>
-      <span className="course-copy">
+      <div className="course-copy">
         <span className="course-name">{course.label}</span>
-      </span>
-      <ChevronRight className="course-arrow" size={30} strokeWidth={2.4} aria-hidden="true" />
+        <span className="course-count">{courseCountLabel(course)}</span>
+      </div>
+      <ChevronRight className="course-arrow" size={24} strokeWidth={2.4} aria-hidden="true" />
     </Link>
   );
 }
@@ -50,13 +67,8 @@ export function CursosSection() {
         </div>
         <details className="courses-more">
           <summary>
-            <Image
-              className="courses-more-icon"
-              src="/course-icons/10_ver_mas_cursos.svg"
-              alt=""
-              width={28}
-              height={28}
-            />
+            <Plus className="courses-more-icon courses-more-icon-plus" size={24} strokeWidth={2.5} aria-hidden="true" />
+            <Minus className="courses-more-icon courses-more-icon-minus" size={24} strokeWidth={2.5} aria-hidden="true" />
             Ver más cursos
           </summary>
           <div className="courses-grid courses-grid-extra">

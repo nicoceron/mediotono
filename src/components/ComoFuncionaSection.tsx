@@ -109,12 +109,11 @@ export function ComoFuncionaSection() {
                     <video
                       className="cf-lesson-video"
                       src="/comienza-a-aprender-guitarra.mp4"
-                      poster="/comienza-a-aprender-guitarra-poster.jpg"
                       autoPlay
                       loop
                       muted
                       playsInline
-                      aria-label="Estudiante en clase de guitarra"
+                      aria-label="Estudiante tocando guitarra en clase"
                     />
                   </div>
                 </div>

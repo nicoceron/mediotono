@@ -13,6 +13,7 @@ import {
   Languages,
   MapPin,
   Search,
+  SlidersHorizontal,
   Sparkles,
   Star,
   Video,
@@ -367,6 +368,7 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
     Boolean(languageFilter) ||
     Boolean(locationFilter) ||
     sortMode !== "recommended";
+  const mobileFilterCount = [formatFilter, locationFilter, languageFilter].filter(Boolean).length;
 
   const updateFilters = (updates: Partial<FilterState>) => {
     const currentParams = new URLSearchParams(
@@ -427,33 +429,85 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
             onClear={() => updateFilters({ courseQuery: "" })}
           />
 
-          <FilterMenu
-            label="Formato"
-            value={formatFilter}
-            fallbackLabel="Cualquier formato"
-            options={formatMenuOptions}
-            ariaLabel="Filtrar por formato de clase"
-            onSelect={(value) => updateFilters({ formatFilter: value })}
-          />
+          <div className="profes-desktop-filter">
+            <FilterMenu
+              label="Formato"
+              value={formatFilter}
+              fallbackLabel="Cualquier formato"
+              options={formatMenuOptions}
+              ariaLabel="Filtrar por formato de clase"
+              onSelect={(value) => updateFilters({ formatFilter: value })}
+            />
+          </div>
 
-          <FilterMenu
-            label="Ubicación"
-            value={locationFilter}
-            fallbackLabel="Cualquier ubicación"
-            options={locationMenuOptions}
-            ariaLabel="Filtrar por ubicación"
-            onSelect={(value) => updateFilters({ locationFilter: value })}
-          />
+          <div className="profes-desktop-filter">
+            <FilterMenu
+              label="Ubicación"
+              value={locationFilter}
+              fallbackLabel="Cualquier ubicación"
+              options={locationMenuOptions}
+              ariaLabel="Filtrar por ubicación"
+              onSelect={(value) => updateFilters({ locationFilter: value })}
+            />
+          </div>
 
-          <FilterMenu
-            label="Idioma"
-            value={languageFilter}
-            fallbackLabel="Cualquier idioma"
-            options={languageMenuOptions}
-            ariaLabel="Filtrar por idioma de clase"
-            onSelect={(value) => updateFilters({ languageFilter: value })}
-          />
+          <div className="profes-desktop-filter">
+            <FilterMenu
+              label="Idioma"
+              value={languageFilter}
+              fallbackLabel="Cualquier idioma"
+              options={languageMenuOptions}
+              ariaLabel="Filtrar por idioma de clase"
+              onSelect={(value) => updateFilters({ languageFilter: value })}
+            />
+          </div>
         </div>
+
+        <details className="profes-mobile-filters">
+          <summary className="profes-mobile-filter-summary">
+            <span>
+              <SlidersHorizontal size={18} strokeWidth={2.4} aria-hidden="true" />
+              Filtros
+              {mobileFilterCount > 0 && (
+                <span className="profes-mobile-filter-count">{mobileFilterCount}</span>
+              )}
+            </span>
+            <ChevronDown
+              className="profes-mobile-filter-chevron"
+              size={20}
+              strokeWidth={2.4}
+              aria-hidden="true"
+            />
+          </summary>
+          <div className="profes-mobile-filter-panel">
+            <FilterMenu
+              label="Formato"
+              value={formatFilter}
+              fallbackLabel="Cualquier formato"
+              options={formatMenuOptions}
+              ariaLabel="Filtrar por formato de clase"
+              onSelect={(value) => updateFilters({ formatFilter: value })}
+            />
+
+            <FilterMenu
+              label="Ubicación"
+              value={locationFilter}
+              fallbackLabel="Cualquier ubicación"
+              options={locationMenuOptions}
+              ariaLabel="Filtrar por ubicación"
+              onSelect={(value) => updateFilters({ locationFilter: value })}
+            />
+
+            <FilterMenu
+              label="Idioma"
+              value={languageFilter}
+              fallbackLabel="Cualquier idioma"
+              options={languageMenuOptions}
+              ariaLabel="Filtrar por idioma de clase"
+              onSelect={(value) => updateFilters({ languageFilter: value })}
+            />
+          </div>
+        </details>
 
         <div
           className={
