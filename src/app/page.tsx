@@ -1,5 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { VocesStrip } from "@/components/VocesStrip";
+import { CursosSection } from "@/components/CursosSection";
 import { ComoFuncionaSection } from "@/components/ComoFuncionaSection";
 import { CalidadBanner } from "@/components/CalidadBanner";
 import { TestimoniosSection } from "@/components/TestimoniosSection";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <CursosSection />
       <VocesStrip />
       <ComoFuncionaSection />
       <CalidadBanner />

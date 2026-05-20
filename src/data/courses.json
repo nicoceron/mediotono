@@ -1,0 +1,156 @@
+[
+  {
+    "id": "iniciacion-musical",
+    "label": "Iniciación musical",
+    "placement": "main",
+    "icon": "/course-icons/01_iniciacion_musical.svg",
+    "aliases": ["Música"]
+  },
+  {
+    "id": "flauta-traversa",
+    "label": "Flauta traversa",
+    "placement": "main",
+    "icon": "/course-icons/02_flauta_traversa.svg",
+    "aliases": ["Flauta"]
+  },
+  {
+    "id": "violin",
+    "label": "Violín",
+    "placement": "main",
+    "icon": "/course-icons/03_violin.svg",
+    "aliases": []
+  },
+  {
+    "id": "piano",
+    "label": "Piano",
+    "placement": "main",
+    "icon": "/course-icons/04_piano.svg",
+    "aliases": []
+  },
+  {
+    "id": "guitarra-acustica",
+    "label": "Guitarra acústica",
+    "placement": "main",
+    "icon": "/course-icons/05_guitarra_acustica.svg",
+    "aliases": ["Guitarra", "Acústica"]
+  },
+  {
+    "id": "canto",
+    "label": "Canto",
+    "placement": "main",
+    "icon": "/course-icons/06_canto.svg",
+    "aliases": ["Voz", "Técnica vocal", "Técnica de voz", "Vocal"]
+  },
+  {
+    "id": "teoria-musical",
+    "label": "Teoría musical",
+    "placement": "main",
+    "icon": "/course-icons/07_teoria_musical.svg",
+    "aliases": ["Teoría", "Armonía", "Composición"]
+  },
+  {
+    "id": "guitarra-electrica",
+    "label": "Guitarra eléctrica",
+    "placement": "main",
+    "icon": "/course-icons/08_guitarra_electrica.svg",
+    "aliases": []
+  },
+  {
+    "id": "percusion",
+    "label": "Percusión",
+    "placement": "main",
+    "icon": "/course-icons/09_percusion.svg",
+    "aliases": ["Batería"]
+  },
+  {
+    "id": "bajo-electrico",
+    "label": "Bajo eléctrico",
+    "placement": "more",
+    "icon": "/course-icons/11_bajo_electrico.svg",
+    "aliases": ["Bajo"]
+  },
+  {
+    "id": "tiple",
+    "label": "Tiple",
+    "placement": "more",
+    "icon": "/course-icons/12_tiple.svg",
+    "aliases": []
+  },
+  {
+    "id": "bandola-andina",
+    "label": "Bandola andina",
+    "placement": "more",
+    "icon": "/course-icons/13_bandola_andina.svg",
+    "aliases": ["Bandola"]
+  },
+  {
+    "id": "clarinete",
+    "label": "Clarinete",
+    "placement": "more",
+    "icon": "/course-icons/14_clarinete.svg",
+    "aliases": []
+  },
+  {
+    "id": "saxofon",
+    "label": "Saxofón",
+    "placement": "more",
+    "icon": "/course-icons/15_saxofon.svg",
+    "aliases": ["Saxo"]
+  },
+  {
+    "id": "oboe",
+    "label": "Oboe",
+    "placement": "more",
+    "icon": "/course-icons/16_oboe.svg",
+    "aliases": []
+  },
+  {
+    "id": "trompeta",
+    "label": "Trompeta",
+    "placement": "more",
+    "icon": "/course-icons/17_trompeta.svg",
+    "aliases": []
+  },
+  {
+    "id": "trombon",
+    "label": "Trombón",
+    "placement": "more",
+    "icon": "/course-icons/18_trombon.svg",
+    "aliases": []
+  },
+  {
+    "id": "fagot",
+    "label": "Fagot",
+    "placement": "more",
+    "icon": "/course-icons/19_fagot.svg",
+    "aliases": []
+  },
+  {
+    "id": "viola",
+    "label": "Viola",
+    "placement": "more",
+    "icon": "/course-icons/20_viola.svg",
+    "aliases": []
+  },
+  {
+    "id": "violoncello",
+    "label": "Violoncello",
+    "placement": "more",
+    "icon": "/course-icons/21_violoncello.svg",
+    "aliases": ["Chelo", "Violoncelo", "Violonchelo"]
+  },
+  {
+    "id": "contrabajo",
+    "label": "Contrabajo",
+    "placement": "more",
+    "icon": "/course-icons/22_contrabajo.svg",
+    "aliases": []
+  },
+  {
+    "id": "flauta-dulce",
+    "label": "Flauta dulce",
+    "placement": "more",
+    "icon": "/course-icons/23_flauta_dulce.svg",
+    "aliases": []
+  }
+]

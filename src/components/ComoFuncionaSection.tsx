@@ -7,19 +7,19 @@ const STEPS = [
   {
     number: "1",
     title: "Encuentra tu profe.",
-    body: "Conoce a los profes de A ½ tono y elige con quién quieres empezar — desde la primera clase vas a sentirte en confianza.",
+    body: "Conoce a los profes de A ½ tono y elige con quién quieres empezar.",
     accent: "var(--pink)",
   },
   {
     number: "2",
     title: "Comienza a aprender.",
-    body: "Tu profe adapta cada clase a tus objetivos — sin importar si llegas con miedo, sin saber leer una nota o queriendo perfeccionar tu técnica.",
+    body: "Tu profe ajusta la clase a tu objetivo, estés empezando o puliendo técnica.",
     accent: "var(--orange)",
   },
   {
     number: "3",
     title: "Avanza cada semana.",
-    body: "Clases presenciales o virtuales, en grupos pequeños y con seguimiento real — para que cada semana suene un poquito mejor que la anterior.",
+    body: "Presencial o virtual, en grupos pequeños y con seguimiento para avanzar cada semana.",
     accent: "var(--blue)",
   },
 ];
@@ -93,7 +93,7 @@ export function ComoFuncionaSection() {
                         <strong style={{ color: t.color }}>
                           {t.shortName}
                         </strong>
-                        <span>Profe de {t.role.split("·")[0].trim()}</span>
+                        <span>Profe de {t.skills[0]?.label ?? t.role}</span>
                       </div>
                     </Link>
                   ))}

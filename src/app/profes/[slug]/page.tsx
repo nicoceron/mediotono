@@ -7,6 +7,8 @@ import {
   ArrowRight,
   BadgeCheck,
   GraduationCap,
+  Languages,
+  MapPin,
   MessageCircle,
   Sparkles,
   Star,
@@ -18,8 +20,7 @@ import {
   getTeacherBySlug,
   shortDisplayName,
 } from "@/lib/teachers";
-
-const WA_NUMBER = "573228725396";
+import { whatsappHref } from "@/lib/contact";
 
 export function generateStaticParams() {
   return TEACHERS.map((t) => ({ slug: t.slug }));
@@ -48,15 +49,14 @@ export default async function ProfeDetailPage({
   const teacher = getTeacherBySlug(slug);
   if (!teacher) notFound();
 
-  const waMsg = encodeURIComponent(
+  const waUrl = whatsappHref(
     `¡Hola! Quiero más información sobre las clases con ${teacher.shortName}.`,
   );
-  const waUrl = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
 
-  const instruments = teacher.role
-    .split("·")
-    .map((p) => p.trim())
-    .filter(Boolean);
+  const instruments = teacher.skills.map((skill) => skill.label);
+  const classFormats = teacher.classFormats ?? [];
+  const classLanguages = teacher.classLanguages ?? [];
+  const hasReviews = teacher.reviews.length > 0;
 
   return (
     <>
@@ -83,7 +83,17 @@ export default async function ProfeDetailPage({
                     className="pd-hero-photo-bg"
                     style={{ background: teacher.color }}
                   />
-                  <Image src={teacher.photo} alt={teacher.name} fill sizes="200px" />
+                  <Image
+                    src={teacher.photo}
+                    alt={teacher.name}
+                    fill
+                    sizes="200px"
+                    style={
+                      teacher.photoPosition
+                        ? { objectPosition: teacher.photoPosition }
+                        : undefined
+                    }
+                  />
                 </div>
                 <div className="pd-hero-copy">
                   <h1 className="pd-hero-name">
@@ -92,13 +102,24 @@ export default async function ProfeDetailPage({
                       size={28}
                       strokeWidth={2.4}
                       style={{ color: teacher.color }}
-                      aria-label="Profe verificada"
+                      aria-label="Profe verificado"
                     />
                   </h1>
                   <div className="pd-hero-meta">
                     <span className="pd-hero-role">
                       Profe de {instruments.join(" · ")}
                     </span>
+                    {teacher.location && (
+                      <>
+                        <span className="pd-hero-dot" aria-hidden="true">
+                          ·
+                        </span>
+                        <span className="pd-hero-location">
+                          <MapPin size={15} strokeWidth={2.4} aria-hidden="true" />
+                          {teacher.location}
+                        </span>
+                      </>
+                    )}
                     {teacher.country && (
                       <>
                         <span className="pd-hero-dot" aria-hidden="true">
@@ -136,7 +157,7 @@ export default async function ProfeDetailPage({
                       Clases de {inst.toLowerCase()}
                     </li>
                   ))}
-                  {teacher.classFormats.map((fmt) => (
+                  {classFormats.map((fmt) => (
                     <li key={fmt} className="pd-imparte-item pd-imparte-item-soft">
                       <Video
                         size={14}
@@ -144,6 +165,16 @@ export default async function ProfeDetailPage({
                         style={{ color: teacher.color }}
                       />
                       {fmt}
+                    </li>
+                  ))}
+                  {classLanguages.map((language) => (
+                    <li key={language} className="pd-imparte-item pd-imparte-item-soft">
+                      <Languages
+                        size={14}
+                        strokeWidth={2.4}
+                        style={{ color: teacher.color }}
+                      />
+                      Clases en {language}
                     </li>
                   ))}
                 </ul>
@@ -157,69 +188,70 @@ export default async function ProfeDetailPage({
                 <p className="pd-about-body">{teacher.longBio}</p>
               </section>
 
-              {/* Reseñas */}
-              <section className="pd-section">
-                <header className="pd-section-head pd-reviews-head">
-                  <h2>Reseñas de mis estudiantes</h2>
-                  <div className="pd-reviews-rating">
-                    <strong>5,0</strong>
-                    <span
-                      className="pd-reviews-stars"
-                      aria-hidden="true"
-                      style={{ color: teacher.color }}
-                    >
-                      {[0, 1, 2, 3, 4].map((s) => (
-                        <Star
-                          key={s}
-                          size={16}
-                          fill="currentColor"
-                          strokeWidth={0}
-                        />
-                      ))}
-                    </span>
-                  </div>
-                </header>
-                <p className="pd-section-sub">
-                  Basado en reseñas de {teacher.reviews.length}{" "}
-                  {teacher.reviews.length === 1 ? "estudiante" : "estudiantes"}.
-                </p>
-                <div className="pd-reviews-grid">
-                  {teacher.reviews.map((r) => (
-                    <article className="pd-review" key={r.id}>
-                      <header className="pd-review-head">
-                        <span
-                          className="pd-review-avatar"
-                          style={{ background: teacher.color }}
-                          aria-hidden="true"
-                        >
-                          {r.author.charAt(0).toUpperCase()}
-                        </span>
-                        <div className="pd-review-meta">
-                          <strong>{r.author}</strong>
-                          {r.instrument && (
-                            <span>{r.instrument}</span>
-                          )}
-                        </div>
-                      </header>
+              {hasReviews && (
+                <section className="pd-section">
+                  <header className="pd-section-head pd-reviews-head">
+                    <h2>Reseñas de mis estudiantes</h2>
+                    <div className="pd-reviews-rating">
+                      <strong>5,0</strong>
                       <span
-                        className="pd-review-stars"
+                        className="pd-reviews-stars"
                         aria-hidden="true"
                         style={{ color: teacher.color }}
                       >
                         {[0, 1, 2, 3, 4].map((s) => (
                           <Star
                             key={s}
-                            size={14}
+                            size={16}
                             fill="currentColor"
                             strokeWidth={0}
                           />
                         ))}
                       </span>
-                      <p className="pd-review-quote">{r.quote}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
+                    </div>
+                  </header>
+                  <p className="pd-section-sub">
+                    Basado en reseñas de {teacher.reviews.length}{" "}
+                    {teacher.reviews.length === 1 ? "estudiante" : "estudiantes"}.
+                  </p>
+                  <div className="pd-reviews-grid">
+                    {teacher.reviews.map((r) => (
+                      <article className="pd-review" key={r.id}>
+                        <header className="pd-review-head">
+                          <span
+                            className="pd-review-avatar"
+                            style={{ background: teacher.color }}
+                            aria-hidden="true"
+                          >
+                            {r.author.charAt(0).toUpperCase()}
+                          </span>
+                          <div className="pd-review-meta">
+                            <strong>{r.author}</strong>
+                            {r.instrument && (
+                              <span>{r.instrument}</span>
+                            )}
+                          </div>
+                        </header>
+                        <span
+                          className="pd-review-stars"
+                          aria-hidden="true"
+                          style={{ color: teacher.color }}
+                        >
+                          {[0, 1, 2, 3, 4].map((s) => (
+                            <Star
+                              key={s}
+                              size={14}
+                              fill="currentColor"
+                              strokeWidth={0}
+                            />
+                          ))}
+                        </span>
+                        <p className="pd-review-quote">{r.quote}</p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
 
             {/* Sticky right card */}
@@ -227,24 +259,37 @@ export default async function ProfeDetailPage({
               <div className="pd-cta-card">
                 <div className="pd-cta-stats">
                   <div className="pd-cta-stat">
-                    <strong>
-                      <Star
-                        size={18}
-                        fill="currentColor"
-                        strokeWidth={0}
-                        style={{ color: teacher.color }}
-                        aria-hidden="true"
-                      />
-                      5,0
-                    </strong>
-                    <span>
-                      {teacher.reviews.length}{" "}
-                      {teacher.reviews.length === 1 ? "reseña" : "reseñas"}
-                    </span>
-                  </div>
-                  <div className="pd-cta-stat">
-                    <strong>{teacher.yearsTeaching}+</strong>
-                    <span>años enseñando</span>
+                    {hasReviews ? (
+                      <>
+                        <strong>
+                          <Star
+                            size={18}
+                            fill="currentColor"
+                            strokeWidth={0}
+                            style={{ color: teacher.color }}
+                            aria-hidden="true"
+                          />
+                          5,0
+                        </strong>
+                        <span>
+                          {teacher.reviews.length}{" "}
+                          {teacher.reviews.length === 1 ? "reseña" : "reseñas"}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <strong>
+                          <Sparkles
+                            size={18}
+                            strokeWidth={2.4}
+                            style={{ color: teacher.color }}
+                            aria-hidden="true"
+                          />
+                          Nuevo
+                        </strong>
+                        <span>perfil de profe</span>
+                      </>
+                    )}
                   </div>
                 </div>
 

@@ -1,10 +1,10 @@
 import { ArrowRight, Mail } from "lucide-react";
-
-const WA_NUMBER = "573228725396";
-const WA_MSG = encodeURIComponent("¡Hola! Quiero más información sobre los cursos.");
-const WA_URL = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`;
-const IG_URL = "https://instagram.com/amediotonomusic";
-const EMAIL = "amediotono1@gmail.com";
+import {
+  CONTACT_EMAIL,
+  INSTAGRAM_URL,
+  WHATSAPP_DISPLAY,
+  whatsappHref,
+} from "@/lib/contact";
 
 export function ContactoSection() {
   return (
@@ -32,8 +32,13 @@ export function ContactoSection() {
               </svg>
             </div>
             <h3>WhatsApp</h3>
-            <strong>+57 322 8725396</strong>
-            <a className="contact-action contact-action-wa" href={WA_URL} target="_blank" rel="noopener">
+            <strong>{WHATSAPP_DISPLAY}</strong>
+            <a
+              className="contact-action contact-action-wa"
+              href={whatsappHref("¡Hola! Quiero más información sobre los cursos.")}
+              target="_blank"
+              rel="noopener"
+            >
               Abrir WhatsApp
               <ArrowRight aria-hidden="true" size={18} strokeWidth={2.6} />
             </a>
@@ -49,7 +54,7 @@ export function ContactoSection() {
             </div>
             <h3>Instagram</h3>
             <strong>@amediotonomusic</strong>
-            <a className="contact-action contact-action-ig" href={IG_URL} target="_blank" rel="noopener">
+            <a className="contact-action contact-action-ig" href={INSTAGRAM_URL} target="_blank" rel="noopener">
               Ver Instagram
               <ArrowRight aria-hidden="true" size={18} strokeWidth={2.6} />
             </a>
@@ -60,8 +65,8 @@ export function ContactoSection() {
               <Mail strokeWidth={2.1} />
             </div>
             <h3>Email</h3>
-            <strong>{EMAIL}</strong>
-            <a className="contact-action contact-action-email" href={`mailto:${EMAIL}`}>
+            <strong>{CONTACT_EMAIL}</strong>
+            <a className="contact-action contact-action-email" href={`mailto:${CONTACT_EMAIL}`}>
               Enviar email
               <ArrowRight aria-hidden="true" size={18} strokeWidth={2.6} />
             </a>
