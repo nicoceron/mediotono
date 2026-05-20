@@ -1,7 +1,7 @@
+import { whatsappHref } from "@/lib/contact";
+
 export function WhatsAppFloat() {
-  const WA_NUMBER = "573228725396";
-  const WA_MSG = encodeURIComponent("¡Hola! Quiero más información sobre los cursos.");
-  const waUrl = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`;
+  const waUrl = whatsappHref("¡Hola! Quiero más información sobre los cursos.");
 
   return (
     <a className="wa-float" href={waUrl} target="_blank" rel="noopener" aria-label="Contáctanos por WhatsApp">

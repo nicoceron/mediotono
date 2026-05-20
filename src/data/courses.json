@@ -1,0 +1,156 @@
+[
+  {
+    "id": "iniciacion-musical",
+    "label": "Iniciación musical",
+    "placement": "main",
+    "icon": "music",
+    "aliases": ["Música"]
+  },
+  {
+    "id": "flauta-traversa",
+    "label": "Flauta traversa",
+    "placement": "main",
+    "icon": "wind",
+    "aliases": ["Flauta"]
+  },
+  {
+    "id": "violin",
+    "label": "Violín",
+    "placement": "main",
+    "icon": "strings",
+    "aliases": []
+  },
+  {
+    "id": "piano",
+    "label": "Piano",
+    "placement": "main",
+    "icon": "piano",
+    "aliases": []
+  },
+  {
+    "id": "guitarra-acustica",
+    "label": "Guitarra acústica",
+    "placement": "main",
+    "icon": "guitar",
+    "aliases": ["Guitarra", "Acústica"]
+  },
+  {
+    "id": "canto",
+    "label": "Canto",
+    "placement": "main",
+    "icon": "mic",
+    "aliases": ["Voz", "Técnica vocal", "Técnica de voz", "Vocal"]
+  },
+  {
+    "id": "teoria-musical",
+    "label": "Teoría musical",
+    "placement": "main",
+    "icon": "file-music",
+    "aliases": ["Teoría", "Armonía", "Composición"]
+  },
+  {
+    "id": "guitarra-electrica",
+    "label": "Guitarra eléctrica",
+    "placement": "main",
+    "icon": "cable",
+    "aliases": []
+  },
+  {
+    "id": "percusion",
+    "label": "Percusión",
+    "placement": "main",
+    "icon": "drum",
+    "aliases": ["Batería"]
+  },
+  {
+    "id": "bajo-electrico",
+    "label": "Bajo eléctrico",
+    "placement": "more",
+    "icon": "cable",
+    "aliases": ["Bajo"]
+  },
+  {
+    "id": "tiple",
+    "label": "Tiple",
+    "placement": "more",
+    "icon": "guitar",
+    "aliases": []
+  },
+  {
+    "id": "bandola-andina",
+    "label": "Bandola andina",
+    "placement": "more",
+    "icon": "guitar",
+    "aliases": ["Bandola"]
+  },
+  {
+    "id": "clarinete",
+    "label": "Clarinete",
+    "placement": "more",
+    "icon": "wind",
+    "aliases": []
+  },
+  {
+    "id": "saxofon",
+    "label": "Saxofón",
+    "placement": "more",
+    "icon": "wind",
+    "aliases": ["Saxo"]
+  },
+  {
+    "id": "oboe",
+    "label": "Oboe",
+    "placement": "more",
+    "icon": "wind",
+    "aliases": []
+  },
+  {
+    "id": "trompeta",
+    "label": "Trompeta",
+    "placement": "more",
+    "icon": "wind",
+    "aliases": []
+  },
+  {
+    "id": "trombon",
+    "label": "Trombón",
+    "placement": "more",
+    "icon": "wind",
+    "aliases": []
+  },
+  {
+    "id": "fagot",
+    "label": "Fagot",
+    "placement": "more",
+    "icon": "wind",
+    "aliases": []
+  },
+  {
+    "id": "viola",
+    "label": "Viola",
+    "placement": "more",
+    "icon": "strings",
+    "aliases": []
+  },
+  {
+    "id": "violoncello",
+    "label": "Violoncello",
+    "placement": "more",
+    "icon": "strings",
+    "aliases": ["Chelo", "Violoncelo", "Violonchelo"]
+  },
+  {
+    "id": "contrabajo",
+    "label": "Contrabajo",
+    "placement": "more",
+    "icon": "strings",
+    "aliases": []
+  },
+  {
+    "id": "flauta-dulce",
+    "label": "Flauta dulce",
+    "placement": "more",
+    "icon": "wind",
+    "aliases": []
+  }
+]

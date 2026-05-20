@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, BadgeCheck, GraduationCap, Sparkles, Star } from "lucide-react";
+import { Suspense } from "react";
 import { Footer } from "@/components/Footer";
-import { Reveal } from "@/components/Reveal";
-import { TEACHERS, shortDisplayName } from "@/lib/teachers";
+import { ProfesDirectory } from "@/components/ProfesDirectory";
+import { TEACHERS } from "@/lib/teachers";
 
 export const metadata: Metadata = {
   title: "Profes — A ½ tono",
@@ -50,127 +48,9 @@ export default function ProfesPage() {
             </h2>
           </div>
 
-          <ul className="profe-list">
-            {TEACHERS.map((t, i) => {
-              const instruments = t.role
-                .split("·")
-                .map((p) => p.trim())
-                .filter(Boolean);
-              return (
-                <Reveal
-                  as="li"
-                  key={t.slug}
-                  delay={i * 80}
-                  className="profe-card-wrap"
-                >
-                  <article
-                    className="profe-card"
-                    style={{ ["--profe-color" as string]: t.color }}
-                  >
-                    <Link
-                      href={`/profes/${t.slug}`}
-                      className="profe-card-photo"
-                      style={{ borderColor: t.color }}
-                      aria-label={`Ver perfil de ${t.name}`}
-                    >
-                      <div
-                        className="profe-card-photo-bg"
-                        style={{ background: t.color }}
-                      />
-                      <Image src={t.photo} alt={t.name} fill sizes="180px" />
-                    </Link>
-
-                    <div className="profe-card-body">
-                      <div className="profe-card-head">
-                        <Link
-                          href={`/profes/${t.slug}`}
-                          className="profe-card-name"
-                        >
-                          {shortDisplayName(t.name)}
-                          <BadgeCheck
-                            size={20}
-                            strokeWidth={2.4}
-                            className="profe-card-verified"
-                            style={{ color: t.color }}
-                            aria-label="Profe verificada"
-                          />
-                          {t.countryFlag && (
-                            <span
-                              className="profe-card-flag"
-                              aria-label={t.country}
-                              title={t.country}
-                            >
-                              {t.countryFlag}
-                            </span>
-                          )}
-                        </Link>
-                      </div>
-
-                      <ul className="profe-card-meta">
-                        <li>
-                          <BadgeCheck size={14} strokeWidth={2.4} />
-                          <span>Profe verificada</span>
-                        </li>
-                        <li>
-                          <GraduationCap size={14} strokeWidth={2.4} />
-                          <span>{instruments.join(" · ")}</span>
-                        </li>
-                        <li>
-                          <Sparkles size={14} strokeWidth={2.4} />
-                          <span>{t.yearsTeaching}+ años enseñando</span>
-                        </li>
-                      </ul>
-
-                      <p className="profe-card-bio">{t.longBio}</p>
-
-                      <Link
-                        href={`/profes/${t.slug}`}
-                        className="profe-card-more"
-                      >
-                        Más información
-                      </Link>
-                    </div>
-
-                    <aside className="profe-card-side">
-                      <div className="profe-card-stats">
-                        <div className="profe-card-stat">
-                          <strong>
-                            <Star
-                              size={16}
-                              fill="currentColor"
-                              strokeWidth={0}
-                              style={{ color: t.color }}
-                              aria-hidden="true"
-                            />
-                            5.0
-                          </strong>
-                          <span>{t.reviews.length} {t.reviews.length === 1 ? "reseña" : "reseñas"}</span>
-                        </div>
-                        <div className="profe-card-stat">
-                          <strong>{t.classFormats.length}</strong>
-                          <span>formatos de clase</span>
-                        </div>
-                      </div>
-
-                      <Link
-                        href={`/profes/${t.slug}`}
-                        className="profe-card-cta"
-                        style={{ background: t.color }}
-                      >
-                        Ver perfil
-                        <ArrowRight size={18} strokeWidth={2.4} />
-                      </Link>
-
-                      <p className="profe-card-popular">
-                        <Sparkles size={14} strokeWidth={2.4} />
-                        Acepta nuevos estudiantes
-                      </p>
-                    </aside>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </ul>
+          <Suspense fallback={<div className="profes-search-fallback" />}>
+            <ProfesDirectory teachers={TEACHERS} />
+          </Suspense>
         </div>
       </section>
       <Footer />

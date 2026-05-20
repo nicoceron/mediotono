@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail } from "lucide-react";
-
-const WA_NUMBER = "573228725396";
-const WA_URL = `https://wa.me/${WA_NUMBER}`;
-const IG_URL = "https://instagram.com/amediotonomusic";
-const EMAIL = "amediotono1@gmail.com";
+import { CONTACT_EMAIL, INSTAGRAM_URL, whatsappHref } from "@/lib/contact";
 
 const NAV_LINKS = [
   { href: "/profes", label: "Profes" },
@@ -47,7 +43,7 @@ export function Footer() {
           <div className="foot-social-row">
             <a
               className="foot-social-btn"
-              href={WA_URL}
+              href={whatsappHref()}
               target="_blank"
               rel="noopener"
               aria-label="WhatsApp"
@@ -65,7 +61,7 @@ export function Footer() {
             </a>
             <a
               className="foot-social-btn"
-              href={IG_URL}
+              href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener"
               aria-label="Instagram"
@@ -89,15 +85,15 @@ export function Footer() {
             </a>
             <a
               className="foot-social-btn"
-              href={`mailto:${EMAIL}`}
+              href={`mailto:${CONTACT_EMAIL}`}
               aria-label="Email"
               title="Email"
             >
               <Mail size={20} strokeWidth={2.2} />
             </a>
           </div>
-          <a className="foot-email" href={`mailto:${EMAIL}`}>
-            {EMAIL}
+          <a className="foot-email" href={`mailto:${CONTACT_EMAIL}`}>
+            {CONTACT_EMAIL}
           </a>
         </div>
       </div>
