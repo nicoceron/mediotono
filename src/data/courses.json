@@ -10,14 +10,14 @@
     "id": "flauta-traversa",
     "label": "Flauta traversa",
     "placement": "main",
-    "icon": "/course-icons/02_flauta_traversa.svg",
+    "icon": "/course-icons/02_flauta_traversa_flipped.svg",
     "aliases": ["Flauta"]
   },
   {
     "id": "violin",
     "label": "Violín",
     "placement": "main",
-    "icon": "/course-icons/03_violin.svg",
+    "icon": "/course-icons/03_violin_rotated.svg",
     "aliases": []
   },
   {
@@ -87,7 +87,7 @@
     "id": "clarinete",
     "label": "Clarinete",
     "placement": "more",
-    "icon": "/course-icons/14_clarinete.svg",
+    "icon": "/course-icons/14_clarinete_rotated.svg",
     "aliases": []
   },
   {
@@ -101,7 +101,7 @@
     "id": "oboe",
     "label": "Oboe",
     "placement": "more",
-    "icon": "/course-icons/16_oboe.svg",
+    "icon": "/course-icons/16_oboe_rotated.svg",
     "aliases": []
   },
   {
@@ -122,35 +122,35 @@
     "id": "fagot",
     "label": "Fagot",
     "placement": "more",
-    "icon": "/course-icons/19_fagot.svg",
+    "icon": "/course-icons/19_fagot_rotated.svg",
     "aliases": []
   },
   {
     "id": "viola",
     "label": "Viola",
     "placement": "more",
-    "icon": "/course-icons/20_viola.svg",
+    "icon": "/course-icons/20_viola_rotated.svg",
     "aliases": []
   },
   {
     "id": "violoncello",
     "label": "Violoncello",
     "placement": "more",
-    "icon": "/course-icons/21_violoncello.svg",
+    "icon": "/course-icons/21_violoncello_rotated.svg",
     "aliases": ["Chelo", "Violoncelo", "Violonchelo"]
   },
   {
     "id": "contrabajo",
     "label": "Contrabajo",
     "placement": "more",
-    "icon": "/course-icons/22_contrabajo.svg",
+    "icon": "/course-icons/22_contrabajo_rotated.svg",
     "aliases": []
   },
   {
     "id": "flauta-dulce",
     "label": "Flauta dulce",
     "placement": "more",
-    "icon": "/course-icons/23_flauta_dulce.svg",
+    "icon": "/course-icons/23_flauta_dulce_rotated.svg",
     "aliases": []
   }
 ]

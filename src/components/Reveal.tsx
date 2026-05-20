@@ -30,6 +30,7 @@ export function Reveal({
   return (
     <Component
       className={className}
+      data-mobile-reveal="instant"
       style={style}
       initial={reduce ? false : { opacity: 0, y }}
       whileInView={reduce ? undefined : { opacity: 1, y: 0 }}

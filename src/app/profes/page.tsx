@@ -39,7 +39,7 @@ export default function ProfesPage() {
         data-screen-label="Profesores"
       >
         <div className="container">
-          <div className="sec-head" style={{ textAlign: "left", maxWidth: "1080px", marginLeft: "auto", marginRight: "auto" }}>
+          <div className="sec-head profes-page-head">
             <h2>
               <span style={{ color: "var(--blue)", marginRight: 12 }}>
                 Nuestros
