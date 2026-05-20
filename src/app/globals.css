@@ -21,6 +21,7 @@
   --ink-soft: #5C4A6E;
   --line: #2A1B3D;
   --accent: var(--pink);
+  --course-icon-filter: none;
 
   --font-display: var(--font-manrope), Manrope, "Noto Sans", system-ui, sans-serif;
   --font-body:    var(--font-manrope), Manrope, "Noto Sans", system-ui, sans-serif;
@@ -77,6 +78,7 @@
   --ink: #FFF8EE;
   --ink-soft: #C8B8DC;
   --line: #FFF8EE;
+  --course-icon-filter: invert(1) brightness(1.5);
 }
 
 html {
@@ -704,12 +706,12 @@ section.block.courses-section {
   background: var(--paper);
   border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
   border-radius: 6px;
-  min-height: 112px;
+  min-height: 124px;
   padding: 24px 28px;
   text-decoration: none;
   color: var(--ink);
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr) 32px;
+  grid-template-columns: 70px minmax(0, 1fr) 32px;
   align-items: center;
   gap: 18px;
   transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
@@ -724,12 +726,19 @@ section.block.courses-section {
 }
 
 .course-icon {
-  width: 48px;
-  height: 48px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink);
+}
+
+.course-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: var(--course-icon-filter, none);
+  transform: scale(1.55);
 }
 
 .course-copy {
@@ -765,7 +774,7 @@ section.block.courses-section {
 .courses-more summary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--ink);
   font-size: 1rem;
   font-weight: 850;
@@ -783,6 +792,14 @@ section.block.courses-section {
 
 .courses-more summary:hover {
   color: var(--pink);
+}
+
+.courses-more-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: var(--course-icon-filter, none);
+  transform: scale(1.45);
 }
 
 .courses-grid-extra {
@@ -803,18 +820,18 @@ section.block.courses-section {
   .course-card {
     min-height: 96px;
     padding: 20px;
-    grid-template-columns: 46px minmax(0, 1fr) 28px;
+    grid-template-columns: 56px minmax(0, 1fr) 28px;
     gap: 14px;
   }
 
   .course-icon {
-    width: 42px;
-    height: 42px;
+    width: 56px;
+    height: 56px;
   }
 
-  .course-icon svg {
-    width: 34px;
-    height: 34px;
+  .course-icon img {
+    width: 56px;
+    height: 56px;
   }
 
   .courses-more {

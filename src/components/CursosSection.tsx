@@ -1,18 +1,6 @@
-import type { LucideIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import {
-  AudioLines,
-  Cable,
-  ChevronRight,
-  Drum,
-  FileMusic,
-  Guitar,
-  MicVocal,
-  Music2,
-  Piano,
-  Plus,
-  Wind,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { MAIN_COURSES, MORE_COURSES, courseHref, type Course } from "@/lib/courses";
 
 function SectionHeader({ eyebrow, title, sub, titleColors }: { eyebrow?: string; title: string; sub?: string; titleColors?: string[] }) {
@@ -30,21 +18,7 @@ function SectionHeader({ eyebrow, title, sub, titleColors }: { eyebrow?: string;
   );
 }
 
-const COURSE_ICONS: Record<string, LucideIcon> = {
-  cable: Cable,
-  drum: Drum,
-  "file-music": FileMusic,
-  guitar: Guitar,
-  mic: MicVocal,
-  music: Music2,
-  piano: Piano,
-  strings: AudioLines,
-  wind: Wind,
-};
-
 function CourseCard({ course }: { course: Course }) {
-  const Icon = COURSE_ICONS[course.icon] ?? Music2;
-
   return (
     <Link
       className="course-card"
@@ -52,7 +26,7 @@ function CourseCard({ course }: { course: Course }) {
       aria-label={`Ver profes de ${course.label}`}
     >
       <span className="course-icon" aria-hidden="true">
-        <Icon size={40} strokeWidth={2.2} />
+        <Image src={course.icon} alt="" width={72} height={72} />
       </span>
       <span className="course-copy">
         <span className="course-name">{course.label}</span>
@@ -76,7 +50,13 @@ export function CursosSection() {
         </div>
         <details className="courses-more">
           <summary>
-            <Plus size={24} strokeWidth={2.5} aria-hidden="true" />
+            <Image
+              className="courses-more-icon"
+              src="/course-icons/10_ver_mas_cursos.svg"
+              alt=""
+              width={28}
+              height={28}
+            />
             Ver más cursos
           </summary>
           <div className="courses-grid courses-grid-extra">
