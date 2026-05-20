@@ -9,7 +9,8 @@ export function HeroEntrance() {
         alt="A ½ tono — Escuela de artes"
         width={1448}
         height={1086}
-        priority
+        loading="eager"
+        fetchPriority="high"
         sizes="(max-width: 700px) 76vw, (max-width: 1100px) 46vw, 500px"
       />
     </div>

@@ -1,5 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
+import {
+  BadgeCheck,
+  GraduationCap,
+  Languages,
+} from "lucide-react";
 import { TEACHERS } from "@/lib/teachers";
 import { Reveal } from "@/components/Reveal";
 
@@ -19,7 +23,7 @@ const STEPS = [
   {
     number: "3",
     title: "Avanza cada semana.",
-    body: "Presencial o virtual, en grupos pequeños y con seguimiento para avanzar cada semana.",
+    body: "Virtual o a domicilio, en grupos pequeños y con seguimiento para avanzar cada semana.",
     accent: "var(--blue)",
   },
 ];
@@ -65,11 +69,11 @@ export function ComoFuncionaSection() {
               {i === 0 && (
                 <div className="cf-card-visual cf-visual-profes">
                   {featured.map((t, idx) => (
-                    <Link
+                    <div
                       key={t.slug}
-                      href={`/profes/${t.slug}`}
                       className="cf-mini-profe"
                       style={{
+                        ["--cf-mini-accent" as string]: t.color,
                         borderColor: t.color,
                         zIndex: featured.length - idx,
                       }}
@@ -84,22 +88,46 @@ export function ComoFuncionaSection() {
                         />
                         <Image
                           src={t.photo}
-                          alt=""
+                          alt={t.shortName}
                           fill
                           sizes="(max-width: 700px) 112px, 130px"
+                          style={
+                            t.photoPosition
+                              ? { objectPosition: t.photoPosition }
+                              : undefined
+                          }
                         />
                       </div>
                       <div className="cf-mini-profe-body">
-                        <strong style={{ color: t.color }}>
-                          {t.shortName}
-                        </strong>
-                        <span>Profe de {t.skills[0]?.label ?? t.role}</span>
+                        <div className="cf-mini-profe-head">
+                          <strong>{t.shortName}</strong>
+                          <BadgeCheck
+                            size={18}
+                            strokeWidth={2.4}
+                            style={{ color: t.color }}
+                            aria-label="Profe verificado"
+                          />
+                          {t.countryFlag && (
+                            <span
+                              className="cf-mini-profe-flag"
+                              aria-label={t.country}
+                              title={t.country}
+                            >
+                              {t.countryFlag}
+                            </span>
+                          )}
+                        </div>
+                        <span className="cf-mini-profe-line">
+                          <GraduationCap size={18} strokeWidth={2.4} aria-hidden="true" />
+                          <span>Profe de {t.skills[0]?.label ?? t.role}</span>
+                        </span>
+                        <span className="cf-mini-profe-line">
+                          <Languages size={18} strokeWidth={2.4} aria-hidden="true" />
+                          <span>{(t.classLanguages ?? ["Español"]).join(" · ")}</span>
+                        </span>
                       </div>
-                    </Link>
+                    </div>
                   ))}
-                  <Link href="/profes" className="cf-mini-profe-more">
-                    Ver todas →
-                  </Link>
                 </div>
               )}
 

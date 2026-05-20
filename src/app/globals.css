@@ -2383,15 +2383,26 @@ footer.foot-rich {
 }
 
 /* ===== Profes index — Preply-style large cards ===== */
-.profes-page-head {
-  max-width: 1280px;
+.sec-head.profes-page-head {
+  max-width: 850px;
+  margin-bottom: 32px;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
 }
 
+.sec-head.profes-page-head h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 52px;
+  letter-spacing: 0;
+}
+
 .profes-directory {
-  max-width: 1280px;
+  max-width: 850px;
   margin: 0 auto;
 }
 
@@ -2402,6 +2413,9 @@ footer.foot-rich {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+  max-width: 850px;
+  box-sizing: border-box;
   margin: -20px auto 24px;
   padding: 10px;
   background: color-mix(in srgb, var(--bg-1) 88%, white 12%);
@@ -2420,13 +2434,14 @@ footer.foot-rich {
 }
 
 .profes-filter-row-secondary {
-  grid-template-columns: minmax(240px, 1fr) minmax(172px, 220px);
+  display: flex;
+  flex-wrap: wrap;
   align-items: start;
   overflow: visible;
 }
 
-.profes-filter-row-secondary.has-clear {
-  grid-template-columns: minmax(240px, 1fr) minmax(172px, 220px) auto;
+.profes-filter-row-secondary .profes-keyword-field {
+  flex: 1 1 300px;
 }
 
 .profes-filter-row-secondary > * {
@@ -2458,8 +2473,8 @@ footer.foot-rich {
 .profes-filter-card:focus-within,
 .profes-keyword-field:focus-within,
 .profes-sort-field:focus-within {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 18%, transparent);
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pink) 18%, transparent);
 }
 
 .profes-filter-card {
@@ -2473,22 +2488,27 @@ footer.foot-rich {
 
 .profes-filter-label {
   display: block;
+  min-width: 0;
+  overflow: hidden;
   color: var(--ink-soft);
   font-size: 0.76rem;
   font-weight: 750;
   line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profes-filter-control,
 .profes-course-control {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 24px;
+  grid-template-columns: minmax(0, 1fr) 32px;
   align-items: center;
   gap: 6px;
 }
 
 .profes-filter-card input,
 .profes-keyword-field input {
+  appearance: none;
   width: 100%;
   min-width: 0;
   border: 0;
@@ -2501,17 +2521,42 @@ footer.foot-rich {
   letter-spacing: 0;
 }
 
+.profes-filter-card input[type="search"]::-webkit-search-cancel-button,
+.profes-filter-card input[type="search"]::-webkit-search-decoration,
+.profes-keyword-field input[type="search"]::-webkit-search-cancel-button,
+.profes-keyword-field input[type="search"]::-webkit-search-decoration {
+  display: none;
+  -webkit-appearance: none;
+}
+
 .profes-course-field {
   z-index: 26;
 }
 
 .profes-course-control {
+  box-sizing: border-box;
   width: 100%;
+  display: block;
+  padding-right: 42px;
 }
 
 .profes-course-chevron {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  justify-self: center;
   color: var(--ink);
   pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.profes-course-control .profes-filter-clear {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
 }
 
 .profes-course-options {
@@ -2553,12 +2598,12 @@ footer.foot-rich {
 
 .profes-course-option:hover,
 .profes-course-option:focus-visible {
-  background: color-mix(in srgb, var(--yellow) 42%, transparent);
+  background: color-mix(in srgb, var(--pink) 14%, transparent);
   outline: none;
 }
 
 .profes-course-option.is-selected {
-  background: var(--yellow);
+  background: color-mix(in srgb, var(--pink) 22%, white 78%);
   box-shadow: inset 0 0 0 1px var(--ink);
 }
 
@@ -2650,12 +2695,12 @@ footer.foot-rich {
 
 .profes-menu-option:hover,
 .profes-menu-option:focus-visible {
-  background: color-mix(in srgb, var(--yellow) 42%, transparent);
+  background: color-mix(in srgb, var(--pink) 14%, transparent);
   outline: none;
 }
 
 .profes-menu-option.is-selected {
-  background: var(--yellow);
+  background: color-mix(in srgb, var(--pink) 22%, white 78%);
   box-shadow: inset 0 0 0 1px var(--ink);
 }
 
@@ -2666,16 +2711,24 @@ footer.foot-rich {
 }
 
 .profes-filter-clear {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  justify-self: center;
+  padding: 0;
   border: 0;
   border-radius: 50%;
   background: transparent;
   color: var(--ink-soft);
+  line-height: 0;
   cursor: pointer;
+}
+
+.profes-filter-clear svg,
+.profes-course-chevron {
+  display: block;
 }
 
 .profes-filter-clear:hover {
@@ -2685,13 +2738,13 @@ footer.foot-rich {
 
 .profes-keyword-field {
   display: grid;
-  grid-template-columns: 22px minmax(0, 1fr) 26px;
+  grid-template-columns: 22px minmax(0, 1fr) 32px;
   gap: 8px;
   padding: 0 10px 0 13px;
 }
 
 .profes-keyword-field > svg {
-  color: var(--green);
+  color: var(--pink);
 }
 
 .profes-sort-field {
@@ -2727,13 +2780,19 @@ footer.foot-rich {
 
 .profes-clear-filters:hover,
 .profes-clear-filters:focus-visible {
-  border-color: var(--green);
+  border-color: var(--pink);
   color: var(--pink);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 18%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pink) 18%, transparent);
   outline: none;
 }
 
 .profes-mobile-filters {
+  display: none;
+  min-width: 0;
+}
+
+.profes-mobile-keyword,
+.profes-mobile-clear-filters {
   display: none;
 }
 
@@ -2764,17 +2823,20 @@ footer.foot-rich {
 }
 
 .profes-mobile-filter-summary svg {
-  color: var(--green);
+  color: var(--pink);
 }
 
 .profes-mobile-filter-count {
-  min-width: 22px;
-  height: 22px;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--yellow);
-  color: var(--ink);
-  font-size: 0.78rem;
+  background: var(--pink);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 850;
   line-height: 1;
 }
 
@@ -2792,9 +2854,69 @@ footer.foot-rich {
   margin-top: 8px;
 }
 
+.profes-mobile-filter-sheet-head,
+.profes-mobile-filter-sheet-body,
+.profes-mobile-filter-sheet-foot {
+  min-width: 0;
+}
+
+.profes-mobile-filter-sheet-clear,
+.profes-mobile-filter-sheet-close,
+.profes-mobile-filter-sheet-submit {
+  font: inherit;
+  cursor: pointer;
+}
+
+.profes-mobile-filter-sheet-clear {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 850;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.profes-mobile-filter-sheet-clear:disabled {
+  color: color-mix(in srgb, var(--ink-soft) 62%, transparent);
+  cursor: default;
+  text-decoration-color: color-mix(in srgb, var(--ink-soft) 36%, transparent);
+}
+
+.profes-mobile-filter-sheet-close {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+}
+
+.profes-mobile-filter-sheet-close:hover,
+.profes-mobile-filter-sheet-close:focus-visible {
+  background: color-mix(in srgb, var(--pink) 12%, transparent);
+  outline: none;
+}
+
+.profes-mobile-filter-sheet-submit {
+  width: 100%;
+  min-height: 56px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--pink);
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
 .profes-search-fallback {
   height: 148px;
-  max-width: 1280px;
+  max-width: 850px;
   margin: -20px auto 24px;
 }
 
@@ -2833,8 +2955,8 @@ footer.foot-rich {
   padding: 0 16px;
   border: 2px solid var(--ink);
   border-radius: 999px;
-  background: var(--yellow);
-  color: var(--ink);
+  background: var(--pink);
+  color: white;
   font: inherit;
   font-weight: 850;
   text-decoration: none;
@@ -2848,24 +2970,29 @@ footer.foot-rich {
 }
 
 @media (max-width: 780px) {
-  .profes-page-head {
-    margin-bottom: 24px;
+  .sec-head.profes-page-head {
+    margin-bottom: 32px;
   }
 
-  .profes-page-head h2 {
-    font-size: clamp(2.4rem, 10.4vw, 2.85rem);
-    line-height: 1;
+  .sec-head.profes-page-head h1 {
+    font-size: 48px;
+    line-height: 52px;
   }
 
   .profes-search-panel {
-    margin-top: -14px;
+    margin-top: 0;
     margin-bottom: 20px;
     padding: 8px;
     gap: 8px;
   }
 
   .profes-filter-row-main {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) 56px 56px;
+    align-items: start;
+  }
+
+  .profes-filter-row-main.has-mobile-filter-count {
+    grid-template-columns: minmax(0, 1fr) 88px 56px;
   }
 
   .profes-desktop-filter {
@@ -2874,15 +3001,19 @@ footer.foot-rich {
 
   .profes-mobile-filters {
     display: block;
+    position: relative;
+    z-index: 31;
   }
 
-  .profes-filter-row-secondary,
-  .profes-filter-row-secondary.has-clear {
-    grid-template-columns: 1fr;
+  .profes-mobile-keyword {
+    display: block;
+    position: relative;
+    z-index: 30;
+    min-width: 0;
   }
 
-  .profes-filter-row-secondary.has-clear .profes-clear-filters {
-    grid-column: 1 / -1;
+  .profes-filter-row-secondary {
+    display: none;
   }
 
   .profes-filter-card,
@@ -2891,8 +3022,174 @@ footer.foot-rich {
     min-height: 50px;
   }
 
+  .profes-filter-row-main > .profes-filter-card,
+  .profes-mobile-filter-summary,
+  .profes-mobile-keyword-summary {
+    box-sizing: border-box;
+    height: 56px;
+    min-height: 56px;
+  }
+
+  .profes-filter-row-main > .profes-course-field {
+    padding: 7px 12px;
+  }
+
+  .profes-mobile-filter-summary {
+    width: 56px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .profes-filter-row-main.has-mobile-filter-count .profes-mobile-filter-summary {
+    width: 88px;
+  }
+
+  .profes-mobile-filter-summary > span {
+    width: 100%;
+    justify-content: center;
+    gap: 0;
+    font-size: 0;
+  }
+
+  .profes-filter-row-main.has-mobile-filter-count .profes-mobile-filter-summary > span {
+    gap: 10px;
+  }
+
+  .profes-mobile-filter-summary > span > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .profes-filter-row-main.has-mobile-filter-count .profes-mobile-filter-summary > span > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .profes-mobile-filter-count {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+
+  .profes-mobile-filter-chevron {
+    display: none;
+  }
+
+  .profes-mobile-filter-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0;
+    overflow: hidden;
+    background: var(--paper);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .profes-mobile-filter-sheet-head {
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: minmax(84px, 1fr) auto minmax(84px, 1fr);
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+    background: var(--paper);
+  }
+
+  .profes-mobile-filter-sheet-title {
+    font-family: var(--font-display);
+    font-size: 1.48rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .profes-mobile-filter-sheet-body {
+    min-height: 0;
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    overflow-y: auto;
+    padding: 22px 16px 28px;
+    background: color-mix(in srgb, var(--bg-1) 78%, white 22%);
+  }
+
+  .profes-mobile-filter-sheet-body .profes-filter-card,
+  .profes-mobile-filter-sheet-body .profes-menu-summary {
+    min-height: 64px;
+  }
+
+  .profes-mobile-filter-sheet-body .profes-menu-summary {
+    padding: 10px 14px;
+  }
+
+  .profes-mobile-filter-sheet-body .profes-menu-value {
+    font-size: 1.04rem;
+  }
+
+  .profes-mobile-filter-sheet-foot {
+    padding: 14px 16px max(14px, env(safe-area-inset-bottom));
+    border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+    background: var(--paper);
+    box-shadow: 0 -12px 24px color-mix(in srgb, black 7%, transparent);
+  }
+
+  @supports not (height: 100dvh) {
+    .profes-mobile-filter-panel {
+      height: 100vh;
+    }
+  }
+
+  .profes-mobile-keyword-summary {
+    width: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--ink);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .profes-mobile-keyword-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .profes-mobile-keyword-summary svg {
+    color: var(--pink);
+  }
+
+  .profes-mobile-keyword-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: -9px;
+    z-index: 41;
+    width: calc(100vw - 32px);
+    max-width: 360px;
+    padding: 8px;
+    background: color-mix(in srgb, var(--bg-1) 92%, white 8%);
+    border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    border-radius: 8px;
+    box-shadow: 0 16px 28px color-mix(in srgb, black 12%, transparent);
+  }
+
+  .profes-mobile-keyword-panel .profes-keyword-field {
+    min-height: 50px;
+  }
+
   .profes-keyword-field {
-    grid-template-columns: 20px minmax(0, 1fr) 24px;
+    grid-template-columns: 20px minmax(0, 1fr) 32px;
     padding: 0 9px 0 12px;
   }
 
@@ -2900,12 +3197,18 @@ footer.foot-rich {
     font-size: 0.9rem;
   }
 
-  .profes-menu-options,
-  .profes-course-options {
+  .profes-menu-options {
     position: static;
     margin-top: 8px;
     max-height: 220px;
     box-shadow: none;
+  }
+
+  .profes-course-options {
+    left: 0;
+    right: auto;
+    width: min(360px, calc(100vw - 50px));
+    max-height: 220px;
   }
 
   .profes-menu-field[open] {
@@ -2914,7 +3217,7 @@ footer.foot-rich {
 
   .profes-menu-option.is-selected,
   .profes-course-option.is-selected {
-    background: color-mix(in srgb, var(--yellow) 72%, white 28%);
+    background: color-mix(in srgb, var(--pink) 22%, white 78%);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 28%, transparent);
   }
 
@@ -2928,9 +3231,26 @@ footer.foot-rich {
     padding: 8px;
   }
 
-  .profes-filter-row-secondary,
-  .profes-filter-row-secondary.has-clear {
-    grid-template-columns: 1fr;
+}
+
+@media (max-width: 340px) {
+  .profes-filter-row-main.has-mobile-filter-count {
+    grid-template-columns: minmax(0, 1fr) 80px 56px;
+  }
+
+  .profes-filter-row-main.has-mobile-filter-count .profes-mobile-filter-summary {
+    width: 80px;
+  }
+
+  .profes-filter-row-main.has-mobile-filter-count .profes-mobile-filter-summary > span {
+    gap: 8px;
+  }
+
+  .profes-filter-row-main.has-mobile-filter-count .profes-mobile-filter-count {
+    width: 26px;
+    min-width: 26px;
+    height: 26px;
+    font-size: 0.84rem;
   }
 }
 
@@ -2939,25 +3259,29 @@ footer.foot-rich {
   padding: 0;
   margin: 0 auto;
   width: 100%;
-  max-width: 1280px;
+  max-width: 850px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
-.profe-card-wrap { list-style: none; }
+.profe-card-wrap {
+  list-style: none;
+}
 
 .profe-card {
   --profe-color: var(--accent);
   display: grid;
-  grid-template-columns: 168px minmax(0, 1fr) 230px;
-  gap: 20px;
+  grid-template-columns: 180px minmax(0, 1fr) 190px;
+  grid-template-areas: "photo body action";
+  gap: 18px;
   align-items: stretch;
-  padding: 18px;
+  padding: 24px;
   border: 2px solid color-mix(in srgb, var(--ink) 18%, transparent);
   border-radius: 8px;
   background: var(--paper);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
   transition:
     transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1),
@@ -2969,36 +3293,47 @@ footer.foot-rich {
   border-color: color-mix(in srgb, var(--profe-color) 62%, var(--ink) 18%);
   box-shadow: 0 18px 34px color-mix(in srgb, black 8%, transparent);
 }
+.profe-card:hover .profe-card-name,
+.profe-card:focus-within .profe-card-name {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.profe-card-click-target {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+.profe-card-click-target:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--profe-color) 72%, white 28%);
+  outline-offset: -6px;
+}
 
 @media (max-width: 920px) {
   .profe-card {
-    grid-template-columns: 146px minmax(0, 1fr);
+    grid-template-columns: 160px minmax(0, 1fr);
     grid-template-areas:
       "photo body"
-      "side  side";
+      "action action";
+    align-items: start;
     gap: 20px;
     padding: 20px;
   }
   .profe-card-photo { grid-area: photo; }
   .profe-card-body  { grid-area: body; }
-  .profe-card-side  {
-    grid-area: side;
-    display: grid !important;
-    grid-template-columns: 1fr auto auto;
-    align-items: center;
-    padding-top: 16px;
-    border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-  }
+  .profe-card-actions { grid-area: action; }
 }
 @media (max-width: 560px) {
   .profe-card {
-    grid-template-columns: 104px minmax(0, 1fr);
+    grid-template-columns: 118px minmax(0, 1fr);
     grid-template-areas:
       "photo head"
       "photo meta"
       "bio bio"
-      "tags tags"
-      "side side";
+      "action action";
     align-items: start;
     gap: 10px 14px;
     text-align: left;
@@ -3027,23 +3362,13 @@ footer.foot-rich {
     grid-area: bio;
   }
 
-  .profe-card-tags {
-    grid-area: tags;
-    justify-content: flex-start;
-  }
-
-  .profe-card-side {
-    grid-area: side;
-    display: flex !important;
-    flex-direction: column;
-    align-items: stretch;
-  }
 }
 
 .profe-card-photo {
+  grid-area: photo;
   position: relative;
-  width: 168px;
-  height: 168px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   border: 2px solid;
   flex-shrink: 0;
@@ -3064,9 +3389,10 @@ footer.foot-rich {
 }
 
 .profe-card-body {
+  grid-area: body;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   min-width: 0;
 }
 .profe-card-head {
@@ -3077,9 +3403,9 @@ footer.foot-rich {
 }
 .profe-card-name {
   font-family: var(--font-display);
-  font-size: clamp(22px, 2.1vw, 28px);
+  font-size: 32px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   line-height: 1.1;
   color: var(--ink);
   text-decoration: none;
@@ -3087,17 +3413,17 @@ footer.foot-rich {
   align-items: center;
   gap: 8px;
 }
-.profe-card-name:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .profe-card-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
-  min-height: 26px;
-  padding: 0 8px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border-radius: 6px;
   background: color-mix(in srgb, var(--profe-color) 13%, white 87%);
   color: color-mix(in srgb, var(--profe-color) 76%, var(--ink));
-  font-size: 0.78rem;
   font-weight: 850;
 }
 .profe-card-flag {
@@ -3111,132 +3437,221 @@ footer.foot-rich {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 7px;
 }
 .profe-card-meta li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
-  font-size: 0.9rem;
+  font-size: 16px;
+  line-height: 1.32;
   color: var(--ink-soft);
-  font-weight: 600;
+  font-weight: 500;
 }
-.profe-card-meta svg { color: var(--profe-color); flex-shrink: 0; }
+.profe-card-meta strong {
+  color: var(--ink);
+  font-weight: 850;
+}
+.profe-card-meta svg {
+  color: var(--profe-color);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.profe-card-meta li.profe-card-meta-primary {
+  font-size: 18px;
+  line-height: 1.25;
+}
+.profe-card-meta-primary svg {
+  width: 18px;
+  height: 18px;
+}
+.profe-card-instrument-list {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.profe-card-instrument-list li {
+  display: block;
+  padding-left: 0;
+}
 
 .profe-card-bio {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55;
+  font-size: 17px;
+  line-height: 1.48;
   color: var(--ink-soft);
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  line-clamp: 3;
+  line-clamp: 4;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.profe-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.profe-card-tags span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 0 10px;
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--bg-1) 74%, white 26%);
+.profe-card-bio strong {
   color: var(--ink);
-  font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 850;
 }
-
-.profe-card-side {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
-  padding-left: 18px;
-  border-left: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-}
-.profe-card-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.profe-card-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.profe-card-stat strong {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--font-display);
-  font-size: 1.32rem;
-  color: var(--ink);
-  line-height: 1;
-}
-.profe-card-stat span {
-  font-size: 0.78rem;
+.profe-card-bio span {
   color: var(--ink-soft);
-  font-weight: 700;
+  font-weight: 500;
 }
-.profe-card-cta {
+
+.profe-card-actions {
+  grid-area: action;
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: start;
+  align-self: stretch;
+  justify-self: stretch;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.profe-card-chat {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 20px;
+  min-height: 44px;
+  padding: 10px 14px;
   border-radius: 8px;
   border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 0.96rem;
-  color: white;
   text-decoration: none;
   box-shadow: 3px 3px 0 var(--ink);
   transition: transform 0.14s ease, box-shadow 0.14s ease;
+  pointer-events: auto;
 }
-.profe-card-cta:hover {
+
+.profe-card-chat:hover {
   transform: translate(-1px, -1px);
   box-shadow: 4px 4px 0 var(--ink);
 }
-.profe-card-cta:active {
+.profe-card-chat:active {
   transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 var(--ink);
 }
-.profe-card-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  border: 2px solid var(--ink);
+.profe-card-action-details {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  align-content: space-evenly;
+  margin: 0;
+  padding: 12px 12px;
+  border: 1.5px solid color-mix(in srgb, var(--profe-color) 34%, var(--ink) 12%);
   border-radius: 8px;
-  color: var(--ink);
   background: var(--paper);
-  text-decoration: none;
-  font-size: 0.92rem;
-  font-weight: 850;
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.24;
+  min-height: 0;
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.profe-card-action-details li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.profe-card-action-details svg {
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  flex-shrink: 0;
+  margin-top: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--profe-color) 13%, white 87%);
+  color: var(--profe-color);
+}
+.profe-card-action-details span {
+  min-width: 0;
 }
 @media (max-width: 920px) {
-  .profe-card-side {
-    padding-left: 0;
-    border-left: 0;
+  .profe-card-photo {
+    width: 160px;
+    height: 160px;
   }
-  .profe-card-stats {
-    flex-direction: row;
+
+  .profe-card-name {
+    font-size: 28px;
   }
+
+  .profe-card-meta li {
+    font-size: 15px;
+  }
+
+  .profe-card-meta li.profe-card-meta-primary {
+    font-size: 16px;
+  }
+
+  .profe-card-bio {
+    font-size: 16px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .profe-card-actions {
+    width: 100%;
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-content: start;
+    align-self: start;
+    justify-self: stretch;
+    gap: 10px;
+  }
+
+  .profe-card-chat {
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    align-self: start;
+    padding: 0;
+  }
+
+  .profe-card-chat-label {
+    display: none;
+  }
+
+  .profe-card-action-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+    gap: 4px 6px;
+    min-height: 48px;
+    padding: 7px 8px;
+    font-size: 13px;
+    align-self: stretch;
+  }
+
+  .profe-card-action-details li {
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .profe-card-action-details svg {
+    width: 22px;
+    height: 22px;
+    padding: 4px;
+  }
+
 }
 
 @media (max-width: 560px) {
   .profe-card-photo {
-    width: 104px;
-    height: 104px;
+    width: 118px;
+    height: 118px;
   }
 
   .profe-card-body {
@@ -3257,37 +3672,13 @@ footer.foot-rich {
     grid-area: bio;
   }
 
-  .profe-card-tags {
-    grid-area: tags;
-    justify-content: flex-start;
-  }
-
-  .profe-card-side {
-    grid-area: side;
-  }
-
-  .profe-card-stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    justify-content: stretch;
-  }
-
-  .profe-card-stat {
-    padding: 10px;
-    border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-    border-radius: 8px;
-    background: color-mix(in srgb, var(--bg-1) 72%, white 28%);
-  }
-
   .profe-card-name {
-    font-size: clamp(1.35rem, 7vw, 1.7rem);
+    font-size: 24px;
   }
 
   .profe-card-badge {
-    min-height: 24px;
-    padding: 0 7px;
-    font-size: 0.72rem;
+    width: 25px;
+    height: 25px;
   }
 
   .profe-card-meta {
@@ -3296,56 +3687,78 @@ footer.foot-rich {
 
   .profe-card-meta li {
     gap: 6px;
-    font-size: 0.8rem;
-    line-height: 1.25;
+    font-size: 13px;
+    line-height: 1.28;
+  }
+
+  .profe-card-meta li.profe-card-meta-primary {
+    font-size: 15px;
   }
 
   .profe-card-bio {
-    font-size: 0.9rem;
+    font-size: 14px;
     line-height: 1.48;
     -webkit-line-clamp: 3;
     line-clamp: 3;
   }
 
-  .profe-card-side {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    padding-top: 12px;
-    border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-  }
-
-  .profe-card-stats {
-    grid-column: 1 / -1;
-  }
-
-  .profe-card-cta,
-  .profe-card-secondary {
+  .profe-card-chat {
     min-height: 44px;
-    padding: 10px 12px;
     font-size: 0.86rem;
+  }
+
+  .profe-card-action-details {
+    gap: 4px 6px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 760px) {
+  .profe-list {
+    max-width: 850px;
   }
 }
 
 @media (max-width: 380px) {
   .profe-card {
-    grid-template-columns: 88px minmax(0, 1fr);
+    grid-template-columns: 96px minmax(0, 1fr);
     gap: 10px 12px;
     padding: 12px;
   }
 
   .profe-card-photo {
-    width: 88px;
-    height: 88px;
+    width: 96px;
+    height: 96px;
   }
 
-  .profe-card-side {
-    grid-template-columns: 1fr;
+  .profe-card-actions {
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 6px;
   }
 
-  .profe-card-stats {
-    grid-template-columns: 1fr;
+  .profe-card-chat {
+    width: 46px;
+    height: 46px;
+    min-height: 46px;
   }
+
+  .profe-card-action-details {
+    min-height: 46px;
+    gap: 3px 4px;
+    padding: 6px 5px;
+    font-size: 11.5px;
+  }
+
+  .profe-card-action-details li {
+    gap: 3px;
+  }
+
+  .profe-card-action-details svg {
+    width: 18px;
+    height: 18px;
+    padding: 3px;
+  }
+
 }
 
 /* ===== Profe detail page — Preply-style two column ===== */
@@ -3844,46 +4257,40 @@ footer.foot-rich {
 /* Step 1 visual: stacked profe mini-cards (Preply-style) */
 .cf-visual-profes {
   position: relative;
-  height: 220px;
+  height: 236px;
   margin-top: 6px;
 }
 .cf-mini-profe {
+  --cf-mini-accent: var(--pink);
   position: absolute;
   left: 0;
   right: 8px;
-  height: 88px;
+  height: 102px;
   display: grid;
-  grid-template-columns: minmax(88px, 36%) 1fr;
+  grid-template-columns: 82px minmax(0, 1fr);
   gap: 12px;
-  align-items: stretch;
-  padding: 9px 12px 9px 9px;
-  border-radius: 22px;
+  align-items: center;
+  padding: 10px 14px 10px 10px;
+  border-radius: 8px;
   border: 2px solid color-mix(in srgb, var(--ink) 22%, transparent);
   background: var(--paper);
-  text-decoration: none;
   color: inherit;
   box-shadow: 0 16px 34px color-mix(in srgb, black 10%, transparent);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .cf-mini-profe:nth-of-type(1) {
   top: 0; left: 0; right: 2px; z-index: 3;
 }
 .cf-mini-profe:nth-of-type(2) {
-  top: 66px; left: 22px; right: -8px; z-index: 2;
+  top: 68px; left: 22px; right: -8px; z-index: 2;
 }
 .cf-mini-profe:nth-of-type(3) {
-  top: 132px; left: 44px; right: -16px; z-index: 1;
-}
-.cf-mini-profe:hover {
-  z-index: 4;
-  box-shadow: 0 20px 42px color-mix(in srgb, black 13%, transparent);
-  transform: translateY(-2px);
+  top: 136px; left: 44px; right: -16px; z-index: 1;
 }
 .cf-mini-profe-photo {
   position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 18px;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
   border: 2px solid;
   overflow: hidden;
   flex-shrink: 0;
@@ -3898,18 +4305,50 @@ footer.foot-rich {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 5px;
+  min-width: 0;
+}
+.cf-mini-profe-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   min-width: 0;
 }
 .cf-mini-profe-body strong {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.28rem;
   line-height: 1.1;
+  color: var(--ink);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.cf-mini-profe-body span {
-  font-size: 0.82rem;
+.cf-mini-profe-flag {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+.cf-mini-profe-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  min-width: 0;
+  font-size: 0.86rem;
+  line-height: 1.25;
   color: var(--ink-soft);
   font-weight: 700;
-  margin-top: 2px;
+}
+.cf-mini-profe-line svg {
+  flex: 0 0 auto;
+  margin-top: -1px;
+  color: var(--cf-mini-accent);
+}
+.cf-mini-profe-line span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .cf-mini-profe-more {
   display: none;
@@ -4262,10 +4701,10 @@ footer.foot-rich {
   }
 
   .cf-mini-profe {
-    height: 62px;
-    grid-template-columns: minmax(58px, 32%) minmax(0, 1fr);
+    height: 80px;
+    grid-template-columns: 58px minmax(0, 1fr);
     gap: 8px;
-    padding: 6px 8px 6px 6px;
+    padding: 8px 9px 8px 8px;
     border-radius: 8px;
   }
 
@@ -4275,28 +4714,44 @@ footer.foot-rich {
   }
 
   .cf-mini-profe:nth-of-type(2) {
-    top: calc((100% - 62px) / 2);
+    top: 66px;
     left: 14px;
     right: -4px;
   }
 
   .cf-mini-profe:nth-of-type(3) {
-    top: calc(100% - 62px);
+    top: 132px;
     left: 28px;
     right: -8px;
   }
 
   .cf-mini-profe-photo {
-    border-radius: 6px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+  }
+
+  .cf-mini-profe-body {
+    gap: 3px;
   }
 
   .cf-mini-profe-body strong {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
-  .cf-mini-profe-body span {
+  .cf-mini-profe-head {
+    gap: 5px;
+  }
+
+  .cf-mini-profe-line {
+    gap: 5px;
     font-size: 0.68rem;
-    line-height: 1.2;
+    line-height: 1.15;
+  }
+
+  .cf-mini-profe-line svg {
+    width: 14px;
+    height: 14px;
   }
 
   .cf-lesson-frame,

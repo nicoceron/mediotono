@@ -7,6 +7,7 @@ import {
   ArrowRight,
   BadgeCheck,
   GraduationCap,
+  House,
   Languages,
   MapPin,
   MessageCircle,
@@ -21,6 +22,10 @@ import {
   shortDisplayName,
 } from "@/lib/teachers";
 import { whatsappHref } from "@/lib/contact";
+
+function classFormatIcon(format: string) {
+  return format === "A domicilio" ? House : Video;
+}
 
 export function generateStaticParams() {
   return TEACHERS.map((t) => ({ slug: t.slug }));
@@ -157,16 +162,20 @@ export default async function ProfeDetailPage({
                       Clases de {inst.toLowerCase()}
                     </li>
                   ))}
-                  {classFormats.map((fmt) => (
-                    <li key={fmt} className="pd-imparte-item pd-imparte-item-soft">
-                      <Video
-                        size={14}
-                        strokeWidth={2.4}
-                        style={{ color: teacher.color }}
-                      />
-                      {fmt}
-                    </li>
-                  ))}
+                  {classFormats.map((fmt) => {
+                    const FormatIcon = classFormatIcon(fmt);
+
+                    return (
+                      <li key={fmt} className="pd-imparte-item pd-imparte-item-soft">
+                        <FormatIcon
+                          size={14}
+                          strokeWidth={2.4}
+                          style={{ color: teacher.color }}
+                        />
+                        {fmt}
+                      </li>
+                    );
+                  })}
                   {classLanguages.map((language) => (
                     <li key={language} className="pd-imparte-item pd-imparte-item-soft">
                       <Languages

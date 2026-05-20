@@ -8,7 +8,7 @@ export type Review = {
   quote: string;
 };
 
-export type ClassFormat = "Presencial" | "Virtual" | "A domicilio";
+export type ClassFormat = "Virtual" | "A domicilio";
 export type ClassLanguage = "Español" | "Inglés";
 
 type TeacherRecord = {

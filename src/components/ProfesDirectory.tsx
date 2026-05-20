@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -10,13 +10,14 @@ import {
   ChevronDown,
   CircleX,
   GraduationCap,
+  House,
   Languages,
   MapPin,
+  MessageCircle,
   Search,
   SlidersHorizontal,
-  Sparkles,
-  Star,
   Video,
+  X,
 } from "lucide-react";
 import { whatsappHref } from "@/lib/contact";
 import { COURSES, findCoursesByQuery, normalizeSearchText } from "@/lib/courses";
@@ -29,27 +30,32 @@ type FilterState = {
   formatFilter: string;
   languageFilter: string;
   locationFilter: string;
-  sortMode: string;
 };
-
-const SORT_OPTIONS = [
-  { value: "recommended", label: "Recomendados" },
-  { value: "reviews", label: "Más reseñas" },
-  { value: "name", label: "Nombre A-Z" },
-];
-const DEFAULT_SORT_MODE = "recommended";
-
-function normalizeSortMode(value: string | null) {
-  return SORT_OPTIONS.some((option) => option.value === value) ? value ?? DEFAULT_SORT_MODE : DEFAULT_SORT_MODE;
-}
 
 type FilterMenuOption = {
   value: string;
   label: string;
 };
 
+const CLASS_FORMAT_VALUES = new Set(["Virtual", "A domicilio"]);
+
 function getFirstSuggestedCourseValue(value: string, suggestions: FilterMenuOption[]) {
   return normalizeSearchText(value) ? suggestions[0]?.value ?? "" : "";
+}
+
+function splitBioLead(text: string) {
+  const trimmed = text.trim();
+  const firstSentence = trimmed.match(/^(.+?[.!?])\s+(.+)$/u);
+
+  if (!firstSentence) {
+    return { lead: trimmed, rest: "" };
+  }
+
+  return { lead: firstSentence[1], rest: firstSentence[2] };
+}
+
+function classFormatIcon(format: string) {
+  return format === "A domicilio" ? House : Video;
 }
 
 function FilterMenu({
@@ -180,19 +186,21 @@ function CourseAutocomplete({
         aria-label="Cursos disponibles"
         data-lenis-prevent="true"
       >
-        <button
-          type="button"
-          className={!value ? "profes-course-option is-selected" : "profes-course-option"}
-          role="option"
-          aria-selected={!value}
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={(event) => {
-            onSelect("");
-            event.currentTarget.closest(".profes-course-field")?.querySelector("input")?.blur();
-          }}
-        >
-          Todos los cursos
-        </button>
+        {!value && (
+          <button
+            type="button"
+            className="profes-course-option is-selected"
+            role="option"
+            aria-selected="true"
+            onMouseDown={(event) => event.preventDefault()}
+            onClick={(event) => {
+              onSelect("");
+              event.currentTarget.closest(".profes-course-field")?.querySelector("input")?.blur();
+            }}
+          >
+            Todos los cursos
+          </button>
+        )}
         {suggestions.map((course) => (
           <button
             type="button"
@@ -266,29 +274,27 @@ function matchesTeacher(teacher: Teacher, filters: FilterState) {
   );
 }
 
-function sortTeachers(teachers: Teacher[], sortMode: string) {
-  const sorted = [...teachers];
-
-  if (sortMode === "name") {
-    return sorted.sort((a, b) => a.name.localeCompare(b.name, "es"));
-  }
-
-  if (sortMode === "reviews") {
-    return sorted.sort((a, b) => b.reviews.length - a.reviews.length);
-  }
-
-  return sorted;
-}
-
 export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const courseQuery = searchParams.get("curso") ?? "";
   const keywordQuery = searchParams.get("q") ?? "";
-  const formatFilter = searchParams.get("formato") ?? "";
+  const rawFormatFilter = searchParams.get("formato") ?? "";
+  const formatFilter = CLASS_FORMAT_VALUES.has(rawFormatFilter) ? rawFormatFilter : "";
   const languageFilter = searchParams.get("idioma") ?? "";
   const locationFilter = searchParams.get("ubicacion") ?? "";
-  const sortMode = normalizeSortMode(searchParams.get("orden"));
+
+  useEffect(() => {
+    if (!searchParams.has("orden") && (!rawFormatFilter || rawFormatFilter === formatFilter)) return;
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("orden");
+    if (rawFormatFilter && rawFormatFilter !== formatFilter) {
+      params.delete("formato");
+    }
+    const nextUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
+    window.history.replaceState(null, "", nextUrl);
+  }, [formatFilter, pathname, rawFormatFilter, searchParams]);
 
   const formatOptions = useMemo(
     () =>
@@ -348,14 +354,13 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
       formatFilter,
       languageFilter,
       locationFilter,
-      sortMode,
     }),
-    [courseQuery, keywordQuery, formatFilter, languageFilter, locationFilter, sortMode],
+    [courseQuery, keywordQuery, formatFilter, languageFilter, locationFilter],
   );
 
   const filteredTeachers = useMemo(
-    () => sortTeachers(teachers.filter((teacher) => matchesTeacher(teacher, filters)), sortMode),
-    [teachers, filters, sortMode],
+    () => teachers.filter((teacher) => matchesTeacher(teacher, filters)),
+    [teachers, filters],
   );
   const requestedCourse = courseQuery.trim() || "la clase que estás buscando";
   const emptyContactHref = whatsappHref(
@@ -366,8 +371,7 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
     Boolean(keywordQuery.trim()) ||
     Boolean(formatFilter) ||
     Boolean(languageFilter) ||
-    Boolean(locationFilter) ||
-    sortMode !== "recommended";
+    Boolean(locationFilter);
   const mobileFilterCount = [formatFilter, locationFilter, languageFilter].filter(Boolean).length;
 
   const updateFilters = (updates: Partial<FilterState>) => {
@@ -380,7 +384,6 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
       formatFilter: currentParams.get("formato") ?? formatFilter,
       languageFilter: currentParams.get("idioma") ?? languageFilter,
       locationFilter: currentParams.get("ubicacion") ?? locationFilter,
-      sortMode: normalizeSortMode(currentParams.get("orden") ?? sortMode),
       ...updates,
     };
 
@@ -391,7 +394,6 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
       formato: next.formatFilter,
       idioma: next.languageFilter,
       ubicacion: next.locationFilter,
-      orden: next.sortMode === DEFAULT_SORT_MODE ? "" : normalizeSortMode(next.sortMode),
     };
 
     for (const [key, value] of Object.entries(nextParams)) {
@@ -413,14 +415,29 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
       formatFilter: "",
       languageFilter: "",
       locationFilter: "",
-      sortMode: "recommended",
     });
+  };
+  const clearMobileSheetFilters = () => {
+    updateFilters({
+      formatFilter: "",
+      languageFilter: "",
+      locationFilter: "",
+    });
+  };
+  const closeMobileFilterSheet = (element: HTMLElement) => {
+    element.closest(".profes-mobile-filters")?.removeAttribute("open");
   };
 
   return (
     <div className="profes-directory">
       <form className="profes-search-panel" role="search" onSubmit={(event) => event.preventDefault()}>
-        <div className="profes-filter-row profes-filter-row-main">
+        <div
+          className={
+            mobileFilterCount > 0
+              ? "profes-filter-row profes-filter-row-main has-mobile-filter-count"
+              : "profes-filter-row profes-filter-row-main"
+          }
+        >
           <CourseAutocomplete
             value={courseQuery}
             suggestions={courseSuggestions}
@@ -428,6 +445,112 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
             onSelect={(value) => updateFilters({ courseQuery: value })}
             onClear={() => updateFilters({ courseQuery: "" })}
           />
+
+          <details className="profes-mobile-filters">
+            <summary className="profes-mobile-filter-summary">
+              <span>
+                <SlidersHorizontal size={18} strokeWidth={2.4} aria-hidden="true" />
+                Filtros
+                {mobileFilterCount > 0 && (
+                  <span className="profes-mobile-filter-count">{mobileFilterCount}</span>
+                )}
+              </span>
+              <ChevronDown
+                className="profes-mobile-filter-chevron"
+                size={20}
+                strokeWidth={2.4}
+                aria-hidden="true"
+              />
+            </summary>
+            <div className="profes-mobile-filter-panel" data-lenis-prevent="true">
+              <div className="profes-mobile-filter-sheet-head">
+                <button
+                  type="button"
+                  className="profes-mobile-filter-sheet-clear"
+                  onClick={clearMobileSheetFilters}
+                  disabled={mobileFilterCount === 0}
+                >
+                  Limpiar
+                </button>
+                <strong className="profes-mobile-filter-sheet-title">Filtros</strong>
+                <button
+                  type="button"
+                  className="profes-mobile-filter-sheet-close"
+                  onClick={(event) => closeMobileFilterSheet(event.currentTarget)}
+                  aria-label="Cerrar filtros"
+                >
+                  <X size={28} strokeWidth={2.6} aria-hidden="true" />
+                </button>
+              </div>
+
+              <div className="profes-mobile-filter-sheet-body" data-lenis-prevent="true">
+                <FilterMenu
+                  label="Formato"
+                  value={formatFilter}
+                  fallbackLabel="Cualquier formato"
+                  options={formatMenuOptions}
+                  ariaLabel="Filtrar por formato de clase"
+                  onSelect={(value) => updateFilters({ formatFilter: value })}
+                />
+
+                <FilterMenu
+                  label="Ubicación"
+                  value={locationFilter}
+                  fallbackLabel="Cualquier ubicación"
+                  options={locationMenuOptions}
+                  ariaLabel="Filtrar por ubicación"
+                  onSelect={(value) => updateFilters({ locationFilter: value })}
+                />
+
+                <FilterMenu
+                  label="Idioma"
+                  value={languageFilter}
+                  fallbackLabel="Cualquier idioma"
+                  options={languageMenuOptions}
+                  ariaLabel="Filtrar por idioma de clase"
+                  onSelect={(value) => updateFilters({ languageFilter: value })}
+                />
+              </div>
+
+              <div className="profes-mobile-filter-sheet-foot">
+                <button
+                  type="button"
+                  className="profes-mobile-filter-sheet-submit"
+                  onClick={(event) => closeMobileFilterSheet(event.currentTarget)}
+                >
+                  Ver {filteredTeachers.length} profes
+                </button>
+              </div>
+            </div>
+          </details>
+
+          <details className="profes-mobile-keyword">
+            <summary className="profes-mobile-keyword-summary" aria-label="Buscar por nombre o palabra clave">
+              <Search size={20} strokeWidth={2.4} aria-hidden="true" />
+            </summary>
+            <div className="profes-mobile-keyword-panel">
+              <label className="profes-keyword-field">
+                <Search size={18} strokeWidth={2.4} aria-hidden="true" />
+                <input
+                  type="search"
+                  value={keywordQuery}
+                  onChange={(event) => updateFilters({ keywordQuery: event.target.value })}
+                  placeholder="Buscar profe"
+                  aria-label="Buscar por nombre o palabra clave"
+                />
+                {keywordQuery && (
+                  <button
+                    type="button"
+                    className="profes-filter-clear"
+                    onClick={() => updateFilters({ keywordQuery: "" })}
+                    aria-label="Limpiar búsqueda"
+                  >
+                    <CircleX size={18} strokeWidth={2.4} aria-hidden="true" />
+                  </button>
+                )}
+              </label>
+            </div>
+          </details>
 
           <div className="profes-desktop-filter">
             <FilterMenu
@@ -463,52 +586,6 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
           </div>
         </div>
 
-        <details className="profes-mobile-filters">
-          <summary className="profes-mobile-filter-summary">
-            <span>
-              <SlidersHorizontal size={18} strokeWidth={2.4} aria-hidden="true" />
-              Filtros
-              {mobileFilterCount > 0 && (
-                <span className="profes-mobile-filter-count">{mobileFilterCount}</span>
-              )}
-            </span>
-            <ChevronDown
-              className="profes-mobile-filter-chevron"
-              size={20}
-              strokeWidth={2.4}
-              aria-hidden="true"
-            />
-          </summary>
-          <div className="profes-mobile-filter-panel">
-            <FilterMenu
-              label="Formato"
-              value={formatFilter}
-              fallbackLabel="Cualquier formato"
-              options={formatMenuOptions}
-              ariaLabel="Filtrar por formato de clase"
-              onSelect={(value) => updateFilters({ formatFilter: value })}
-            />
-
-            <FilterMenu
-              label="Ubicación"
-              value={locationFilter}
-              fallbackLabel="Cualquier ubicación"
-              options={locationMenuOptions}
-              ariaLabel="Filtrar por ubicación"
-              onSelect={(value) => updateFilters({ locationFilter: value })}
-            />
-
-            <FilterMenu
-              label="Idioma"
-              value={languageFilter}
-              fallbackLabel="Cualquier idioma"
-              options={languageMenuOptions}
-              ariaLabel="Filtrar por idioma de clase"
-              onSelect={(value) => updateFilters({ languageFilter: value })}
-            />
-          </div>
-        </details>
-
         <div
           className={
             hasActiveFilters
@@ -522,7 +599,7 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
               type="search"
               value={keywordQuery}
               onChange={(event) => updateFilters({ keywordQuery: event.target.value })}
-              placeholder="Nombre o palabra clave"
+              placeholder="Buscar profe"
               aria-label="Buscar por nombre o palabra clave"
             />
             {keywordQuery && (
@@ -536,15 +613,6 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
               </button>
             )}
           </label>
-
-          <FilterMenu
-            label="Orden"
-            value={sortMode}
-            fallbackLabel="Recomendados"
-            options={SORT_OPTIONS}
-            ariaLabel="Ordenar profes"
-            onSelect={(value) => updateFilters({ sortMode: value })}
-          />
           {hasActiveFilters && (
             <button type="button" className="profes-clear-filters" onClick={clearFilters}>
               Limpiar filtros
@@ -560,7 +628,10 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
             const instruments = teacher.skills.map((skill) => skill.label);
             const classFormats = teacher.classFormats ?? [];
             const classLanguages = teacher.classLanguages ?? [];
-            const hasReviews = teacher.reviews.length > 0;
+            const teacherContactHref = whatsappHref(
+              `¡Hola! Quiero más información sobre las clases con ${teacher.name}.`,
+            );
+            const bio = splitBioLead(teacher.longBio);
 
             return (
               <li key={teacher.slug} className="profe-card-wrap">
@@ -570,9 +641,15 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
                 >
                   <Link
                     href={`/profes/${teacher.slug}`}
+                    className="profe-card-click-target"
+                    aria-label={`Ver perfil de ${teacher.name}`}
+                  >
+                    <span className="visually-hidden">Ver perfil de {teacher.name}</span>
+                  </Link>
+
+                  <div
                     className="profe-card-photo"
                     style={{ borderColor: teacher.color }}
-                    aria-label={`Ver perfil de ${teacher.name}`}
                   >
                     <div
                       className="profe-card-photo-bg"
@@ -582,26 +659,26 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
                       src={teacher.photo}
                       alt={teacher.name}
                       fill
-                      sizes="168px"
+                      sizes="(max-width: 380px) 96px, (max-width: 560px) 118px, (max-width: 920px) 160px, 180px"
                       style={
                         teacher.photoPosition
                           ? { objectPosition: teacher.photoPosition }
                           : undefined
                       }
                     />
-                  </Link>
+                  </div>
 
                   <div className="profe-card-body">
                     <div className="profe-card-head">
-                      <Link
-                        href={`/profes/${teacher.slug}`}
-                        className="profe-card-name"
-                      >
+                      <span className="profe-card-name">
                         {shortDisplayName(teacher.name)}
-                      </Link>
-                      <span className="profe-card-badge">
-                        <BadgeCheck size={15} strokeWidth={2.4} aria-hidden="true" />
-                        Verificado
+                      </span>
+                      <span
+                        className="profe-card-badge"
+                        aria-label="Profesor verificado"
+                        title="Profesor verificado"
+                      >
+                        <BadgeCheck size={17} strokeWidth={2.4} aria-hidden="true" />
                       </span>
                       {teacher.countryFlag && (
                         <span
@@ -615,17 +692,15 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
                     </div>
 
                     <ul className="profe-card-meta">
-                      <li>
+                      <li className="profe-card-meta-primary">
                         <GraduationCap size={15} strokeWidth={2.4} />
-                        <span>{instruments.join(" · ")}</span>
-                      </li>
-                      <li>
-                        <MapPin size={15} strokeWidth={2.4} />
-                        <span>{teacher.location}</span>
-                      </li>
-                      <li>
-                        <Video size={15} strokeWidth={2.4} />
-                        <span>{classFormats.join(" · ")}</span>
+                        <ul className="profe-card-instrument-list" aria-label="Cursos que imparte">
+                          {instruments.map((instrument) => (
+                            <li key={instrument}>
+                              <strong>{instrument}</strong>
+                            </li>
+                          ))}
+                        </ul>
                       </li>
                       <li>
                         <Languages size={15} strokeWidth={2.4} />
@@ -633,70 +708,40 @@ export function ProfesDirectory({ teachers }: { teachers: Teacher[] }) {
                       </li>
                     </ul>
 
-                    <p className="profe-card-bio">{teacher.longBio}</p>
-
-                    <div className="profe-card-tags" aria-label="Resumen del profe">
-                      {instruments.slice(0, 3).map((instrument) => (
-                        <span key={instrument}>{instrument}</span>
-                      ))}
-                      {classLanguages.includes("Inglés") && <span>Bilingüe</span>}
-                    </div>
+                    <p className="profe-card-bio">
+                      <strong>{bio.lead}</strong>
+                      {bio.rest && <span> {bio.rest}</span>}
+                    </p>
                   </div>
 
-                  <aside className="profe-card-side">
-                    <div className="profe-card-stats">
-                      <div className="profe-card-stat">
-                        <strong>
-                          {hasReviews ? (
-                            <>
-                              <Star
-                                size={17}
-                                fill="currentColor"
-                                strokeWidth={0}
-                                style={{ color: teacher.color }}
-                                aria-hidden="true"
-                              />
-                              5.0
-                            </>
-                          ) : (
-                            <>
-                              <Sparkles
-                                size={17}
-                                strokeWidth={2.4}
-                                style={{ color: teacher.color }}
-                                aria-hidden="true"
-                              />
-                              Nuevo
-                            </>
-                          )}
-                        </strong>
-                        <span>
-                          {hasReviews
-                            ? `${teacher.reviews.length} ${
-                                teacher.reviews.length === 1 ? "reseña" : "reseñas"
-                              }`
-                            : "perfil de profe"}
-                        </span>
-                      </div>
-                      <div className="profe-card-stat">
-                        <strong>{classFormats.length}</strong>
-                        <span>formatos</span>
-                      </div>
-                    </div>
-
-                    <Link
-                      href={`/profes/${teacher.slug}`}
-                      className="profe-card-cta"
-                      style={{ background: teacher.color }}
+                  <div className="profe-card-actions">
+                    <a
+                      href={teacherContactHref}
+                      className="profe-card-chat"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={`Escribir por WhatsApp sobre ${teacher.name}`}
                     >
-                      Ver perfil
-                      <ArrowRight size={18} strokeWidth={2.4} />
-                    </Link>
+                      <MessageCircle size={22} strokeWidth={2.4} aria-hidden="true" />
+                      <span className="profe-card-chat-label">WhatsApp</span>
+                    </a>
+                    <ul className="profe-card-action-details" aria-label="Detalles de clase">
+                      <li>
+                        <MapPin size={20} strokeWidth={2.4} aria-hidden="true" />
+                        <span>{teacher.location}</span>
+                      </li>
+                      {classFormats.map((format) => {
+                        const FormatIcon = classFormatIcon(format);
 
-                    <Link href={`/profes/${teacher.slug}`} className="profe-card-secondary">
-                      Más información
-                    </Link>
-                  </aside>
+                        return (
+                          <li key={format}>
+                            <FormatIcon size={20} strokeWidth={2.4} aria-hidden="true" />
+                            <span>{format}</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </article>
               </li>
             );

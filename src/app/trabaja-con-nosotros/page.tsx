@@ -11,7 +11,7 @@ const JOB_DETAILS = [
   },
   {
     label: "Modalidad",
-    value: "Presencial y virtual",
+    value: "Virtual y a domicilio",
     icon: Music2,
   },
   {

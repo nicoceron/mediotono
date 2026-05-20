@@ -16,7 +16,6 @@
       "Pedagógica"
     ],
     "classFormats": [
-      "Presencial",
       "Virtual",
       "A domicilio"
     ],
@@ -106,7 +105,6 @@
       "Estructurada"
     ],
     "classFormats": [
-      "Presencial",
       "Virtual",
       "A domicilio"
     ],
@@ -158,7 +156,7 @@
     "shortName": "Sara",
     "color": "var(--pink)",
     "bio": "Soy Sara, pianista que no tiene tan buenos chistes, pero aprendemos divirtiéndonos. \"Music is medicine\".",
-    "longBio": "Soy Sara, pianista enamorada de la pedagogía musical. Mis clases son dinámicas, claras y de fácil asimilación, pensadas para que avances con confianza desde el primer día — sea de manera presencial o virtual. Creo que la música es medicina, y que cada estudiante merece un espacio cálido y honesto para encontrar su sonido.",
+    "longBio": "Soy Sara, pianista enamorada de la pedagogía musical. Mis clases son dinámicas, claras y de fácil asimilación, pensadas para que avances con confianza desde el primer día — sea de manera virtual o a domicilio. Creo que la música es medicina, y que cada estudiante merece un espacio cálido y honesto para encontrar su sonido.",
     "country": "Colombia",
     "countryFlag": "🇨🇴",
     "highlights": [
@@ -167,7 +165,6 @@
       "Cercana"
     ],
     "classFormats": [
-      "Presencial",
       "Virtual",
       "A domicilio"
     ],
@@ -217,7 +214,6 @@
       "Paciente"
     ],
     "classFormats": [
-      "Presencial",
       "Virtual",
       "A domicilio"
     ],

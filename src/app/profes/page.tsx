@@ -5,30 +5,10 @@ import { ProfesDirectory } from "@/components/ProfesDirectory";
 import { TEACHERS } from "@/lib/teachers";
 
 export const metadata: Metadata = {
-  title: "Profes — A ½ tono",
+  title: "Profes y tutores de música — A ½ tono",
   description:
-    "Conoce a nuestros profes: paciencia, técnica y mucho cariño. Encuentra a tu profe ideal en A ½ tono.",
+    "Encuentra profesores de música para clases particulares virtuales o a domicilio en A ½ tono.",
 };
-
-function ColoredProfes() {
-  const letters = [
-    { char: "p", color: "var(--orange)" },
-    { char: "r", color: "var(--green)" },
-    { char: "o", color: "var(--red)" },
-    { char: "f", color: "var(--blue)" },
-    { char: "e", color: "var(--pink)" },
-    { char: "s", color: "var(--purple)" },
-  ];
-  return (
-    <span>
-      {letters.map((l, i) => (
-        <span key={i} style={{ color: l.color }}>
-          {l.char}
-        </span>
-      ))}
-    </span>
-  );
-}
 
 export default function ProfesPage() {
   return (
@@ -40,12 +20,7 @@ export default function ProfesPage() {
       >
         <div className="container">
           <div className="sec-head profes-page-head">
-            <h2>
-              <span style={{ color: "var(--blue)", marginRight: 12 }}>
-                Nuestros
-              </span>
-              <ColoredProfes />
-            </h2>
+            <h1>Profes y tutores de música</h1>
           </div>
 
           <Suspense fallback={<div className="profes-search-fallback" />}>

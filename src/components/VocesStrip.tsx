@@ -9,7 +9,7 @@ type StripItem =
 
 const ITEMS: StripItem[] = [
   { type: "asset", icon: "/instruments/blue-note.svg" },
-  { type: "offer", title: "Clases presenciales", subtitle: "En grupos pequeños" },
+  { type: "offer", title: "Clases a domicilio", subtitle: "En tu espacio" },
   { type: "asset", icon: "/instruments/orange-note.svg" },
   { type: "offer", title: "Clases virtuales", subtitle: "Desde casa" },
   { type: "asset", icon: "/instruments/pink-treble.svg" },
